@@ -24,6 +24,7 @@ const Welfare: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [strokes, setStrokes] = useState<Array<Array<{ x: number; y: number }>>>([]);
   const currentStrokeRef = useRef<Array<{ x: number; y: number }>>([]);
 
@@ -63,7 +64,7 @@ const Welfare: React.FC = () => {
     e.preventDefault();
     setIsDrawing(true);
     currentStrokeRef.current = [];
-    const pos = getCanvasPos('nativeEvent' in e ? (e.nativeEvent as any) : (e as any));
+    const pos = getCanvasPos('nativeEvent' in e ? (e.nativeEvent as MouseEvent | TouchEvent) : (e as MouseEvent | TouchEvent));
     currentStrokeRef.current.push(pos);
   };
 
@@ -72,7 +73,7 @@ const Welfare: React.FC = () => {
     const ctx = ctxRef.current;
     const canvas = canvasRef.current;
     if (!ctx || !canvas) return;
-    const pos = getCanvasPos('nativeEvent' in e ? (e.nativeEvent as any) : (e as any));
+    const pos = getCanvasPos('nativeEvent' in e ? (e.nativeEvent as MouseEvent | TouchEvent) : (e as MouseEvent | TouchEvent));
     const stroke = currentStrokeRef.current;
     stroke.push(pos);
     // draw segment
@@ -143,15 +144,49 @@ const Welfare: React.FC = () => {
     setBeneficiaries(prev => prev.map((ben, i) => i === index ? { ...ben, [field]: value } : ben));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    if (isSubmitting) return;
+
     if (!formData.constitution || !formData.consent) {
       alert("Please accept both the constitution and consent declarations.");
       return;
     }
 
-    alert("Your welfare application has been submitted successfully. We will contact you soon.");
+    // Capture signature as data URL (PNG)
+    const signatureDataUrl = (() => {
+      const canvas = canvasRef.current;
+      try {
+        return canvas ? canvas.toDataURL("image/png") : "";
+      } catch {
+        return "";
+      }
+    })();
+
+    const payload = {
+      applicant: formData,
+      beneficiaries,
+      signatureDataUrl,
+    };
+
+    try {
+      setIsSubmitting(true);
+      const res = await fetch("form-submit.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({} as any));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.message || "Failed to submit form");
+      }
+      alert("Your application has been sent successfully. A confirmation has been emailed.");
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "An unexpected error occurred";
+      alert("Submission failed: " + message + "\nPlease try again later or contact support.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handlePrint = () => {
@@ -237,6 +272,13 @@ const Welfare: React.FC = () => {
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-2">Phone *</label>
                   <input id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="md:col-span-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">Email *</label>
+                  <input id="email" type="email" value={formData.email} onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
                 </div>
               </div>
             </div>
@@ -351,7 +393,7 @@ const Welfare: React.FC = () => {
           {/* Controls */}
           <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
             <button type="button" onClick={handlePrint} className="w-full sm:w-auto px-4 py-2 rounded-md border border-luhya-gold text-black bg-white hover:bg-luhya-gold/10">Print / Save as PDF</button>
-            <button type="submit" className="w-full sm:w-auto px-6 py-2 rounded-md bg-luhya-gold text-black font-semibold hover:opacity-90">Submit</button>
+            <button type="submit" disabled={isSubmitting} className="w-full sm:w-auto px-6 py-2 rounded-md bg-luhya-gold text-black font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed">{isSubmitting ? "Submitting..." : "Submit"}</button>
           </div>
 
           {/* Privacy Notice */}

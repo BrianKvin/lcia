@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Users, Calendar, MessageCircle, Home, Heart } from "lucide-react";
+import { Menu, X, Calendar, MessageCircle, Home, Heart } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
