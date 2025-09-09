@@ -6,34 +6,26 @@ import { ADDRESS_LINE_1, ADDRESS_LINE_2, PHONE_DISPLAY, PHONE_TEL, EMAIL } from 
 const Events = () => {
   const upcomingEvents = [
     {
-      title: "Summer Family BBQ",
-      date: "August 15, 2024",
-      time: "5:00 PM - 8:00 PM",
-      location: "Community Park",
-      attendees: 45,
-      description: "Join us for our annual summer barbecue with games, food, and fun for the whole family!"
+      title: "Chris’s Birthday Party 🎉",
+      date: "September 14, 2025",
+      time: "3:00 PM till late",
+      location: "Parramatta",
+      attendees: 50,
+      description: "Come and celebrate with us as we join our brother Chris for his birthday party! 🎂🎶 Community & friends invited."
     },
     {
-      title: "Children's Art Workshop",
-      date: "August 22, 2024",
-      time: "2:00 PM - 4:00 PM",
-      location: "Community Center",
-      attendees: 18,
-      description: "Creative art activities for kids ages 5-12. All materials provided!"
-    },
-    {
-      title: "Neighborhood Watch Meeting",
-      date: "August 28, 2024",
-      time: "7:00 PM - 8:30 PM",
-      location: "Community Hall",
-      attendees: 32,
-      description: "Monthly safety meeting to discuss community security and updates."
+      title: "End of Year Mulembe Community Gathering 🎉",
+      date: "December 14, 2025",
+      time: "2:00 PM till late",
+      location: "Henry Lawson Dr, Lansdowne NSW",
+      attendees: 120,
+      description: "Join us for our final community gathering of the year — discussions, updates, food, and fellowship as we celebrate our achievements and unity. 🍲 Please bring a Kenyan dish to share."
     }
   ];
 
 
   return (
-    <section id="events" className="py-20 bg-white">
+    <section id="events" className="py-20 bg-white scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

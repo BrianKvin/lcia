@@ -36,7 +36,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="pt-24 pb-20 sm:pt-28 sm:pb-24 bg-white">
+    <section id="about" className="pt-24 pb-20 sm:pt-28 sm:pb-24 bg-white scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -47,7 +47,7 @@ const About = () => {
           </h2>
           <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-4">
             <p>
-              At Mulembe Community NSW Inc., we gather four times a year to celebrate, share, and strengthen our heritage. Through music, dance, food, and storytelling, we preserve the beauty of our culture and pass it on to the next generation—even while abroad.
+              At the Mulembe Community, we gather four times a year to celebrate, share, and strengthen our heritage. Through music, dance, food, and storytelling, we preserve the beauty of our culture and pass it on to the next generation—even while abroad.
             </p>
             <p>
               We welcome all members of the Luhya community living in Sydney to join us, connect with their heritage, and experience the power of belonging. Together, we celebrate who we are, where we come from, and the bonds that unite us—both in Kenya and here in Australia.

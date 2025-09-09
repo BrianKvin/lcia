@@ -16,36 +16,7 @@ const BusinessDirectory = () => {
       services: ["Samosas", "Chapatis", "Catering", "Bulk Orders"],
       image: deesKitchenPoster,
     },
-    {
-      name: "Mama's Kitchen",
-      owner: "Elizabeth Khisa",
-      category: "Food & Catering",
-      description: "Authentic Luhya cuisine and catering services for special occasions",
-      location: "Blacktown, NSW",
-      phone: "+61 410 107 026",
-      email: "mamas.kitchen@email.com",
-      services: ["Traditional Cooking", "Event Catering", "Food Delivery"]
-    },
-    {
-      name: "Luhya Transport Services",
-      owner: "Joseph Ikatanyi", 
-      category: "Transportation",
-      description: "Reliable transport services for community events and airport transfers",
-      location: "Parramatta, NSW",
-      phone: "+61 410 107 026",
-      email: "luhya.transport@email.com",
-      services: ["Airport Transfers", "Event Transport", "Group Bookings"]
-    },
-    {
-      name: "Heritage Crafts & Gifts",
-      owner: "Melanie Odundo",
-      category: "Retail & Crafts",
-      description: "Traditional Luhya crafts, clothing, and cultural gifts",
-      location: "Liverpool, NSW", 
-      phone: "+61 410 107 026",
-      email: "heritage.crafts@email.com",
-      services: ["Traditional Crafts", "Cultural Clothing", "Custom Orders"]
-    },
+    
     {
       name: "Pampered Films",
       owner: "Terence Mukambi",
@@ -99,7 +70,7 @@ const BusinessDirectory = () => {
 
 
   return (
-    <section id="business" className="py-20 bg-gradient-to-b from-white to-luhya-gold/10">
+    <section id="business" className="py-20 bg-gradient-to-b from-white to-luhya-gold/10 scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">

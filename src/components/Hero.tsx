@@ -3,8 +3,14 @@ import { ArrowRight, Heart, Users } from "lucide-react";
 import heroImg from "@/assets/image (4).jpg";
 
 const Hero = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   return (
-    <section id="home" className="min-h-screen flex items-center pt-14 sm:pt-16 pb-16 sm:pb-20 bg-white">
+    <section id="home" className="min-h-screen flex items-center pt-20 sm:pt-24 pb-16 sm:pb-20 bg-white scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Content */}
@@ -13,11 +19,8 @@ const Hero = () => {
               {/* Main Title */}
               <div className="space-y-2">
                 <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground leading-tight">
-                  Welcome to the Mulembe Community
+                  Welcome to Mulembe Community NSW, Australia
                 </h1>
-                <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl font-semibold text-luhya-gold">
-                  in Australia
-                </h2>
               </div>
               
               <div className="space-y-4 text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
@@ -33,7 +36,7 @@ const Hero = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
               <div className="text-center">
-                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-luhya-red">500+</div>
+                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-luhya-red">100+</div>
                 <div className="text-xs sm:text-sm text-muted-foreground">Members</div>
               </div>
               <div className="text-center">
@@ -41,18 +44,18 @@ const Hero = () => {
                 <div className="text-xs sm:text-sm text-muted-foreground">Sub-tribes</div>
               </div>
               <div className="text-center">
-                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-luhya-navy">10+</div>
+                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-luhya-navy">3+</div>
                 <div className="text-xs sm:text-sm text-muted-foreground">Years Strong</div>
               </div>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-              <Button variant="hero" size="lg" className="group text-sm sm:text-base">
+              <Button onClick={() => scrollToSection('business')} variant="hero" size="lg" className="group text-sm sm:text-base">
                 Become a Member
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button variant="communityOutline" size="lg" className="group text-sm sm:text-base">
+              <Button onClick={() => scrollToSection('about')} variant="communityOutline" size="lg" className="group text-sm sm:text-base">
                 <Heart className="w-4 h-4" />
                 Learn More
               </Button>

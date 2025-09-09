@@ -64,7 +64,7 @@ const Gallery = () => {
   const categories = ["All", "Cultural Events", "Community Support", "Youth Programs", "Cultural Workshops", "Life Events", "Recreation"];
 
   return (
-    <section id="gallery" className="py-20 bg-white">
+    <section id="gallery" className="py-20 bg-white scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -206,7 +206,7 @@ const Gallery = () => {
             <div className="w-16 h-16 bg-gradient-to-br from-luhya-navy to-luhya-gold rounded-full flex items-center justify-center mx-auto mb-4">
               <MapPin className="w-8 h-8 text-white" />
             </div>
-            <div className="text-2xl font-bold text-luhya-navy">8+</div>
+            <div className="text-2xl font-bold text-luhya-navy">3+</div>
             <div className="text-sm text-muted-foreground">Years Together</div>
           </div>
         </div>

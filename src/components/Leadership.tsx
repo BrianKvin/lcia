@@ -1,5 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Shield, Heart, DollarSign, FileText } from "lucide-react";
+// Explicitly import as a URL to satisfy TS image typing
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import chairImg from "@/assets/IMG_3862120.JPEG";
 
 const Leadership = () => {
   const leadershipTeam = [
@@ -36,7 +40,7 @@ const Leadership = () => {
   ];
 
   return (
-    <section id="leadership" className="py-20 bg-gradient-to-b from-white to-luhya-cream/20">
+    <section id="leadership" className="py-20 bg-gradient-to-b from-white to-luhya-cream/20 scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -64,20 +68,19 @@ const Leadership = () => {
                   <div className="w-32 h-32 mx-auto mb-4">
                     {/* Background circle with gradient */}
                     <div className="w-32 h-32 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
-                      {/* 
-                        TODO: Replace this placeholder with AI-generated photo
-                        When you have the AI photos, replace the div below with:
-                        <img 
-                          src="/path/to/ai-photo.jpg" 
+                      {leader.name === "Elizabeth Khisa" ? (
+                        <img
+                          src={chairImg}
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-28 h-28 rounded-full object-cover"
                         />
-                      */}
-                      <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-inner">
-                        <span className="text-2xl font-bold text-luhya-navy">
-                          {getInitials(leader.name)}
-                        </span>
-                      </div>
+                      ) : (
+                        <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-inner">
+                          <span className="text-2xl font-bold text-luhya-navy">
+                            {getInitials(leader.name)}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   

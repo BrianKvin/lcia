@@ -28,7 +28,7 @@ const Membership = () => {
   ];
 
   return (
-    <section id="membership" className="py-20 bg-gradient-to-b from-luhya-cream/30 to-white">
+    <section id="membership" className="py-20 bg-gradient-to-b from-luhya-cream/30 to-white scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

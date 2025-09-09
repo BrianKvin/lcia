@@ -301,19 +301,14 @@ const Welfare = () => {
       description: "Reach out through our community channels or leadership team"
     },
     {
-      step: "2", 
-      title: "Assessment",
-      description: "We assess your needs and determine the best support approach"
-    },
-    {
-      step: "3",
+      step: "2",
       title: "Support Provided",
       description: "Receive the assistance you need with dignity and respect"
     }
   ];
 
   return (
-    <section id="welfare" className="py-20 bg-gradient-to-b from-luhya-cream/30 to-white">
+    <section id="welfare" className="py-20 bg-gradient-to-b from-luhya-cream/30 to-white scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -391,7 +386,7 @@ const Welfare = () => {
         {/* Support Process */}
         <div className="mb-16">
           <h3 className="text-2xl font-bold mb-8 text-center text-luhya-navy">How Our Support Works</h3>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-6">
             {supportProcess.map((step, index) => (
               <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-gradient-to-br from-luhya-navy to-luhya-gold rounded-full flex items-center justify-center mx-auto mb-4">
