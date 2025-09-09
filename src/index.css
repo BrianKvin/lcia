@@ -8,32 +8,32 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 40 20% 97%;
-    --foreground: 25 25% 15%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 25% 15%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 25% 15%;
+    --popover-foreground: 0 0% 15%;
 
     --primary: 25 45% 35%;
-    --primary-foreground: 40 20% 97%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 35 30% 85%;
-    --secondary-foreground: 25 25% 25%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 25%;
 
-    --muted: 40 15% 92%;
-    --muted-foreground: 25 15% 55%;
+    --muted: 0 0% 98%;
+    --muted-foreground: 0 0% 45%;
 
     --accent: 15 70% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 40 15% 88%;
-    --input: 40 15% 88%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
     --ring: 25 45% 35%;
 
     /* Luhya Community design tokens - Culture. Strength. Unity */
@@ -57,10 +57,13 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(135deg, hsl(var(--community-warm)) 0%, hsl(var(--community-sky)) 100%);
     --gradient-warm: linear-gradient(135deg, hsl(var(--community-warm-light)) 0%, hsl(var(--community-sky-light)) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    --gradient-clean: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
     
     /* Shadows */
     --shadow-community: 0 10px 30px -10px hsl(var(--community-warm) / 0.3);
     --shadow-soft: 0 4px 20px -4px hsl(var(--community-earth) / 0.15);
+    --shadow-clean: 0 2px 10px -2px hsl(0 0% 0% / 0.1);
+    --shadow-subtle: 0 1px 3px -1px hsl(0 0% 0% / 0.1);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

@@ -1,25 +1,32 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, Quote, MessageCircle, Phone, Mail } from "lucide-react";
+import { ADDRESS_LINE_1, ADDRESS_LINE_2, PHONE_DISPLAY, PHONE_TEL, EMAIL } from "@/constants/contact";
 
 const Community = () => {
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Resident since 2018",
-      content: "Hearthstone Village has been the perfect place to raise our children. The sense of community here is unlike anywhere we've lived before. Our neighbors have become our closest friends.",
+      name: "Douglas Marango",
+      role: "Community Member",
+      content: "At last, we have a community of our own abroad! Being part of Mulembe Community NSW reminds me that even though we are far from Kenya, we have not forgotten our culture. These gatherings feel like home.",
       rating: 5
     },
     {
-      name: "Mike Chen",
-      role: "Community Volunteer",
-      content: "I love how everyone comes together to help each other. When we moved in, neighbors brought us meals and helped us settle in. That's the kind of place this is.",
+      name: "Brian Lupia",
+      role: "Community Member",
+      content: "The meetups are always filled with laughter, stories, and plenty of Kenyan food. Everyone brings something from home, and when we sit together to eat, it feels just like being back in the village.",
       rating: 5
     },
     {
-      name: "Emma Rodriguez",
-      role: "Parent & Teacher",
-      content: "The children's activities and educational programs here are fantastic. My kids have made lifelong friends, and I've connected with amazing parents who share similar values.",
+      name: "Daisy",
+      role: "Community Member",
+      content: "For me, joining these gatherings has been a blessing for my mental health. It calms me, gives me joy, and makes me feel that even though I am away from home, I still have a second family here in Sydney.",
+      rating: 5
+    },
+    {
+      name: "Loven",
+      role: "Community Member",
+      content: "Every time we meet, we not only celebrate our culture but also encourage one another—whether it's supporting businesses, sharing ideas, or simply enjoying each other's company. It's a good initiative that strengthens our unity as Luhyas.",
       rating: 5
     }
   ];
@@ -46,25 +53,25 @@ const Community = () => {
   ];
 
   return (
-    <section id="community" className="py-20 bg-gradient-to-b from-muted/50 to-background">
+    <section id="community" className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             What Our{" "}
-            <span className="bg-gradient-to-r from-community-warm to-community-sky bg-clip-text text-transparent">
-              Residents Say
+            <span className="bg-gradient-to-r from-luhya-red to-luhya-green bg-clip-text text-transparent">
+              Community Members Say
             </span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Hear from the families who make Hearthstone Village the wonderful 
-            community it is today.
+            Hear from our members who have found connection, culture, and belonging 
+            in the Mulembe Community NSW.
           </p>
         </div>
 
         {/* Testimonials */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="group hover:shadow-[var(--shadow-soft)] transition-all duration-300">
+            <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
@@ -118,6 +125,16 @@ const Community = () => {
                 </Button>
               </div>
             ))}
+          </div>
+
+          <div className="text-center text-sm text-muted-foreground mb-4">
+            <p>{ADDRESS_LINE_1}</p>
+            <p>{ADDRESS_LINE_2}</p>
+            <p>
+              <a href={`tel:${PHONE_TEL}`} className="underline hover:no-underline">{PHONE_DISPLAY}</a>
+               <br/>
+              <a href={`mailto:${EMAIL}`} className="underline hover:no-underline">{EMAIL}</a>
+            </p>
           </div>
 
           <div className="text-center">

@@ -4,21 +4,25 @@ import About from "@/components/About";
 import Events from "@/components/Events";
 import Gallery from "@/components/Gallery";
 import Community from "@/components/Community";
+import Leadership from "@/components/Leadership";
+import Membership from "@/components/Membership";
+import BusinessDirectory from "@/components/BusinessDirectory";
 import Welfare from "@/components/Welfare";
 import Footer from "@/components/Footer";
-import ParticleBackground from "@/components/ParticleBackground";
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
-      <ParticleBackground />
       <Header />
       <Hero />
       <About />
+      <Welfare />
       <Events />
       <Gallery />
       <Community />
-      <Welfare />
+      <Leadership />
+      <Membership />
+      <BusinessDirectory />
       <Footer />
     </div>
   );

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MapPin, Users, ArrowRight } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, ArrowRight, Heart, MessageCircle } from "lucide-react";
+import { ADDRESS_LINE_1, ADDRESS_LINE_2, PHONE_DISPLAY, PHONE_TEL, EMAIL } from "@/constants/contact";
 
 const Events = () => {
   const upcomingEvents = [
@@ -30,15 +31,9 @@ const Events = () => {
     }
   ];
 
-  const regularActivities = [
-    { name: "Morning Yoga", schedule: "Mon, Wed, Fri - 7:00 AM", location: "Park Pavilion" },
-    { name: "Book Club", schedule: "First Tuesday - 7:00 PM", location: "Community Center" },
-    { name: "Kids Playgroup", schedule: "Thu, Sat - 10:00 AM", location: "Playground" },
-    { name: "Garden Club", schedule: "Sundays - 9:00 AM", location: "Community Garden" }
-  ];
 
   return (
-    <section id="events" className="py-20 bg-background">
+    <section id="events" className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -61,7 +56,7 @@ const Events = () => {
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {upcomingEvents.map((event, index) => (
-              <Card key={index} className="group hover:shadow-[var(--shadow-soft)] transition-all duration-300">
+              <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-lg group-hover:text-community-warm transition-colors">
                     {event.title}
@@ -99,41 +94,97 @@ const Events = () => {
           </div>
         </div>
 
-        {/* Regular Activities */}
+        {/* Culture & Heritage */}
         <div>
           <h3 className="text-2xl font-bold mb-8 flex items-center">
-            <Clock className="w-6 h-6 mr-2 text-community-sky" />
-            Regular Activities
+            <Heart className="w-6 h-6 mr-2 text-luhya-red" />
+            Culture & Heritage
           </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {regularActivities.map((activity, index) => (
-              <Card key={index} className="hover:shadow-[var(--shadow-soft)] transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="font-semibold mb-1">{activity.name}</h4>
-                      <p className="text-sm text-muted-foreground mb-1">{activity.schedule}</p>
-                      <p className="text-sm text-community-warm">{activity.location}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-gradient-to-br from-community-warm-light to-community-sky-light rounded-lg flex items-center justify-center">
-                      <Calendar className="w-6 h-6 text-community-earth" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Sub-tribes Spotlight */}
+            <Card className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-gold/20">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold mb-3 text-luhya-navy">Sub-tribes Spotlight</h4>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Discover the rich diversity of Luhya sub-tribes: Bukusu, Maragoli, Wanga, Tiriki, and more.
+                </p>
+                <div className="text-xs text-luhya-gold font-medium">
+                  Learn about traditions, customs, and unique practices of each sub-tribe.
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Taste of Home */}
+            <Card className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-green/20">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-luhya-green to-luhya-red rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold mb-3 text-luhya-navy">Taste of Home</h4>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Authentic recipes and food memories: Chapati, ugali, ingokho, and traditional Luhya dishes.
+                </p>
+                <div className="text-xs text-luhya-green font-medium">
+                  Share recipes, cooking tips, and stories behind our favorite meals.
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Sounds & Stories */}
+            <Card className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-red/20">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-luhya-red to-luhya-navy rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold mb-3 text-luhya-navy">Sounds & Stories</h4>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Traditional music, drumming, isukuti rhythms, proverbs, and folktales passed down through generations.
+                </p>
+                <div className="text-xs text-luhya-red font-medium">
+                  Experience the rhythm and wisdom of our cultural heritage.
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Language Corner */}
+            <Card className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-navy/20">
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-luhya-navy to-luhya-gold rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="font-semibold mb-3 text-luhya-navy">Language Corner</h4>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Common Luhya greetings and phrases with pronunciations. (Working on this - liaising with people back home).
+                </p>
+                <div className="text-xs text-luhya-navy font-medium">
+                  Keep our language alive and accessible to the next generation.
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 text-center bg-gradient-to-r from-community-warm-light to-community-sky-light p-8 rounded-2xl">
-          <h3 className="text-2xl font-bold mb-4">Want to Organize an Event?</h3>
+        <div className="mt-16 text-center bg-gradient-to-r from-luhya-gold/10 to-luhya-green/10 p-8 rounded-2xl border border-luhya-gold/20">
+          <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Explore Our Heritage</h3>
           <p className="text-muted-foreground mb-6">
-            Have an idea for a community event? We'd love to hear from you!
+            Dive deeper into our rich Luhya culture and traditions. Join us in preserving and celebrating our heritage.
           </p>
           <Button variant="community" size="lg">
-            Contact Event Committee
+            Explore Our Heritage
           </Button>
+          <div className="mt-6 text-sm text-muted-foreground">
+            <p>{ADDRESS_LINE_1}</p>
+            <p>{ADDRESS_LINE_2}</p>
+            <p>
+              <a href={`tel:${PHONE_TEL}`} className="underline hover:no-underline">{PHONE_DISPLAY}</a>
+               <br/>
+              <a href={`mailto:${EMAIL}`} className="underline hover:no-underline">{EMAIL}</a>
+            </p>
+          </div>
         </div>
       </div>
     </section>

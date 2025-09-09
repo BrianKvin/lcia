@@ -36,7 +36,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-gradient-to-b from-background to-muted/50">
+    <section id="about" className="pt-24 pb-20 sm:pt-28 sm:pb-24 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -45,15 +45,19 @@ const About = () => {
               Mulembe Community NSW
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            The Mulembe Community in NSW is a vibrant cultural family that brings together people from all 18 Luhya sub-tribes, 
-            preserving our heritage while building a supportive community for future generations.
-          </p>
+          <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-4">
+            <p>
+              At Mulembe Community NSW Inc., we gather four times a year to celebrate, share, and strengthen our heritage. Through music, dance, food, and storytelling, we preserve the beauty of our culture and pass it on to the next generation—even while abroad.
+            </p>
+            <p>
+              We welcome all members of the Luhya community living in Sydney to join us, connect with their heritage, and experience the power of belonging. Together, we celebrate who we are, where we come from, and the bonds that unite us—both in Kenya and here in Australia.
+            </p>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-[var(--shadow-soft)] transition-all duration-300 border-border/50">
+            <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-border/50">
               <CardContent className="p-6">
                 <div className="flex items-start space-x-4">
                  <div className="w-12 h-12 bg-gradient-to-br from-luhya-gold/20 to-luhya-green/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -72,7 +76,7 @@ const About = () => {
         {/* Community Values */}
         <div className="mt-20 text-center">
           <h3 className="text-2xl font-bold mb-8">Our Core Values</h3>
-          <div className="grid md:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
             <div className="space-y-2">
               <div className="w-16 h-16 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center mx-auto">
                 <Users className="w-8 h-8 text-white" />

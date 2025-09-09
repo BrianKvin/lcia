@@ -1,409 +1,703 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Heart, Users, DollarSign, Shield, Send } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import type React from "react";
 
-const Welfare: React.FC = () => {
+const Welfare = () => {
+  const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || '/form-submit.php';
   const [formData, setFormData] = useState({
+    // Applicant Details
     firstName: '',
     middleName: '',
     surname: '',
     email: '',
-    phone: '',
     street: '',
     suburb: '',
     state: '',
     postcode: '',
     country: 'Australia',
-    constitution: false,
-    consent: false
+    phone: '',
+    // Beneficiaries (5 family members)
+    beneficiaries: Array(5).fill(null).map(() => ({
+      firstName: '',
+      middleName: '',
+      surname: '',
+      dateOfBirth: '',
+      relationship: ''
+    })),
+    // Signature and declarations
+    signature: '',
+    constitutionConsent: false,
+    privacyConsent: false,
   });
 
-  const [beneficiaries, setBeneficiaries] = useState([
-    { firstName: '', middleName: '', surname: '', dateOfBirth: '', relationship: '' }
-  ]);
-
-  // Signature canvas state (keeps functionality fully client-side)
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const signatureRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [strokes, setStrokes] = useState<Array<Array<{ x: number; y: number }>>>([]);
-  const currentStrokeRef = useRef<Array<{ x: number; y: number }>>([]);
+  const [history, setHistory] = useState<string[]>([]);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
+  // Ensure crisp drawing on high-DPI screens and when resizing
+  const resizeCanvasForDPR = () => {
+    const canvas = signatureRef.current;
     if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
     const ctx = canvas.getContext('2d');
-    if (ctx) {
-      ctx.scale(dpr, dpr);
-      ctx.lineJoin = 'round';
-      ctx.lineCap = 'round';
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = '#111111';
-      ctxRef.current = ctx;
-      redrawSignature();
-    }
+    if (!ctx) return;
+    canvas.width = Math.floor(rect.width * ratio);
+    canvas.height = Math.floor(rect.height * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#111827';
+  };
+
+  // Initialize once and on resize
+  useEffect(() => {
+    resizeCanvasForDPR();
+    const onResize = () => {
+      // Preserve last drawing on resize by restoring top of history if present
+      const last = history[history.length - 1];
+      resizeCanvasForDPR();
+      if (last) {
+        const canvas = signatureRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (!canvas || !ctx) return;
+        const img = new Image();
+        img.onload = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = last;
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getCanvasPos = (e: MouseEvent | TouchEvent) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return { x: 0, y: 0 };
-    const rect = canvas.getBoundingClientRect();
-    if ('touches' in e) {
-      const t = e.touches[0];
-      return { x: t.clientX - rect.left, y: t.clientY - rect.top };
-    }
-    const m = e as MouseEvent;
-    return { x: m.clientX - rect.left, y: m.clientY - rect.top };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const startDrawing = (e: React.MouseEvent | React.TouchEvent) => {
-    e.preventDefault();
+  const handleBeneficiaryChange = (index: number, field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      beneficiaries: prev.beneficiaries.map((beneficiary, i) => 
+        i === index ? { ...beneficiary, [field]: value } : beneficiary
+      )
+    }));
+  };
+
+  const handleCheckboxChange = (field: string, checked: boolean) => {
+    setFormData(prev => ({ ...prev, [field]: checked }));
+  };
+
+  // Signature pad functionality
+  const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
     setIsDrawing(true);
-    currentStrokeRef.current = [];
-    const pos = getCanvasPos('nativeEvent' in e ? (e.nativeEvent as MouseEvent | TouchEvent) : (e as MouseEvent | TouchEvent));
-    currentStrokeRef.current.push(pos);
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    // Save snapshot for undo before a new stroke
+    try {
+      const snap = canvas.toDataURL('image/png');
+      setHistory(prev => [...prev, snap].slice(-20));
+    } catch {}
+
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#111827';
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
   };
 
-  const draw = (e: React.MouseEvent | React.TouchEvent) => {
+  const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDrawing) return;
-    const ctx = ctxRef.current;
-    const canvas = canvasRef.current;
-    if (!ctx || !canvas) return;
-    const pos = getCanvasPos('nativeEvent' in e ? (e.nativeEvent as MouseEvent | TouchEvent) : (e as MouseEvent | TouchEvent));
-    const stroke = currentStrokeRef.current;
-    stroke.push(pos);
-    // draw segment
-    const len = stroke.length;
-    if (len < 2) return;
-    ctx.beginPath();
-    ctx.moveTo(stroke[len - 2].x, stroke[len - 2].y);
-    ctx.lineTo(stroke[len - 1].x, stroke[len - 1].y);
+    
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
     ctx.stroke();
   };
 
-  const endDrawing = () => {
-    if (!isDrawing) return;
+  const stopDrawing = () => {
     setIsDrawing(false);
-    if (currentStrokeRef.current.length > 0) {
-      setStrokes(prev => [...prev, currentStrokeRef.current]);
-      currentStrokeRef.current = [];
-    }
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    
+    const signatureDataUrl = canvas.toDataURL();
+    setFormData(prev => ({ ...prev, signature: signatureDataUrl }));
+  };
+
+  // Touch support (mobile) with scroll prevention
+  const getTouchPos = (touch: React.Touch, canvas: HTMLCanvasElement) => {
+    const rect = canvas.getBoundingClientRect();
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  };
+
+  const startDrawingTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    setIsDrawing(true);
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Save snapshot for undo
+    try {
+      const snap = canvas.toDataURL('image/png');
+      setHistory(prev => [...prev, snap].slice(-20));
+    } catch {}
+
+    const t = e.touches[0];
+    const { x, y } = getTouchPos(t, canvas);
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#111827';
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  };
+
+  const drawTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    if (!isDrawing) return;
+    e.preventDefault();
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const t = e.touches[0];
+    const { x, y } = getTouchPos(t, canvas);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  };
+
+  const stopDrawingTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    setIsDrawing(false);
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    const signatureDataUrl = canvas.toDataURL();
+    setFormData(prev => ({ ...prev, signature: signatureDataUrl }));
   };
 
   const clearSignature = () => {
-    setStrokes([]);
-    const ctx = ctxRef.current;
-    const canvas = canvasRef.current;
-    if (ctx && canvas) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setFormData(prev => ({ ...prev, signature: '' }));
   };
 
   const undoSignature = () => {
-    setStrokes(prev => {
-      const next = prev.slice(0, -1);
-      setTimeout(() => redrawSignature(next), 0);
-      return next;
-    });
-  };
-
-  const redrawSignature = (custom?: Array<Array<{ x: number; y: number }>>) => {
-    const ctx = ctxRef.current;
-    const canvas = canvasRef.current;
-    if (!ctx || !canvas) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const data = custom ?? strokes;
-    ctx.beginPath();
-    data.forEach(stroke => {
-      stroke.forEach((p, i) => {
-        if (i === 0) {
-          ctx.moveTo(p.x, p.y);
-        } else {
-          ctx.lineTo(p.x, p.y);
-        }
-      });
-    });
-    ctx.stroke();
-  };
-
-  const addBeneficiary = () => {
-    if (beneficiaries.length < 5) {
-      setBeneficiaries(prev => [...prev, { firstName: '', middleName: '', surname: '', dateOfBirth: '', relationship: '' }]);
-    }
-  };
-
-  const removeBeneficiary = (index: number) => {
-    setBeneficiaries(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const updateBeneficiary = (index: number, field: string, value: string) => {
-    setBeneficiaries(prev => prev.map((ben, i) => i === index ? { ...ben, [field]: value } : ben));
+    const canvas = signatureRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const prev = history[history.length - 1];
+    if (!prev) return;
+    const img = new Image();
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      setHistory(h => h.slice(0, -1));
+      setFormData(f => ({ ...f, signature: canvas.toDataURL() }));
+    };
+    img.src = prev;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSubmitting) return;
 
-    if (!formData.constitution || !formData.consent) {
-      alert("Please accept both the constitution and consent declarations.");
+    if (!formData.constitutionConsent || !formData.privacyConsent) {
+      alert('Please check both consent boxes to submit the form.');
       return;
     }
 
-    // Capture signature as data URL (PNG)
-    const signatureDataUrl = (() => {
-      const canvas = canvasRef.current;
-      try {
-        return canvas ? canvas.toDataURL("image/png") : "";
-      } catch {
-        return "";
-      }
-    })();
-
     const payload = {
-      applicant: formData,
-      beneficiaries,
-      signatureDataUrl,
+      applicant: {
+      firstName: formData.firstName,
+      middleName: formData.middleName,
+      surname: formData.surname,
+      email: formData.email,
+      street: formData.street,
+      suburb: formData.suburb,
+      state: formData.state,
+      postcode: formData.postcode,
+      country: formData.country,
+        phone: formData.phone,
+      },
+      beneficiaries: formData.beneficiaries.filter(ben => 
+        ben.firstName && ben.surname
+      ),
+      signature: formData.signature,
+      constitutionConsent: formData.constitutionConsent,
+      privacyConsent: formData.privacyConsent,
     };
 
     try {
-      setIsSubmitting(true);
-      const res = await fetch("form-submit.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const data = await res.json().catch(() => ({} as any));
-      if (!res.ok || !data?.ok) {
-        throw new Error(data?.message || "Failed to submit form");
-      }
-      alert("Your application has been sent successfully. A confirmation has been emailed.");
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "An unexpected error occurred";
-      alert("Submission failed: " + message + "\nPlease try again later or contact support.");
-    } finally {
-      setIsSubmitting(false);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error((data as any).message || 'Submission failed');
+      alert('Thank you for your registration! Your form has been submitted successfully to the Mulembe Community NSW team. We will contact you soon.');
+      // Reset form
+      setFormData({
+        firstName: '', middleName: '', surname: '', email: '', street: '', suburb: '', state: '', postcode: '', country: 'Australia', phone: '',
+        beneficiaries: Array(5).fill(null).map(() => ({ firstName: '', middleName: '', surname: '', dateOfBirth: '', relationship: '' })),
+        signature: '', constitutionConsent: false, privacyConsent: false,
+      });
+    } catch (err) {
+      alert(`There was a problem submitting your application. Please try again.\n${(err as Error).message}`);
     }
   };
+  const welfareServices = [
+    {
+      icon: Heart,
+      title: "Bereavement Support",
+      description: "Financial and emotional support during times of loss and bereavement",
+      highlight: true
+    },
+    {
+      icon: DollarSign,
+      title: "Financial Assistance",
+      description: "Emergency financial support for community members in need"
+    },
+    {
+      icon: Users,
+      title: "Family Support",
+      description: "Support for families during difficult times and life transitions"
+    },
+    {
+      icon: Shield,
+      title: "Community Care",
+      description: "Mutual aid and support network for all community members"
+    }
+  ];
 
-  const handlePrint = () => {
-    window.print();
-  };
+  const supportProcess = [
+    {
+      step: "1",
+      title: "Contact Us",
+      description: "Reach out through our community channels or leadership team"
+    },
+    {
+      step: "2", 
+      title: "Assessment",
+      description: "We assess your needs and determine the best support approach"
+    },
+    {
+      step: "3",
+      title: "Support Provided",
+      description: "Receive the assistance you need with dignity and respect"
+    }
+  ];
 
   return (
-    <div id="welfare" className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8 sm:mb-12">
-          {/* Logo */}
-          <div className="flex justify-center mb-4 sm:mb-6">
-            <img 
-              src="/lcia-logo.jpg" 
-              alt="Mulembe Community NSW Logo" 
-              className="w-32 sm:w-40 h-auto object-contain"
-            />
+    <section id="welfare" className="py-20 bg-gradient-to-b from-luhya-cream/30 to-white">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-luhya-red to-luhya-green bg-clip-text text-transparent">
+              🌿 Welfare Fund
+            </span>
+          </h2>
+          <h3 className="text-xl md:text-2xl font-semibold text-luhya-navy mb-6">
+            Standing Together in Times of Need
+          </h3>
+          <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-4">
+            <p>
+              Life in a new country brings joy and opportunity, but it can also bring challenges we never expect. 
+              In moments of loss, being far from home makes everything feel heavier. As a community, we believe 
+              no member should walk that journey alone.
+            </p>
+            <p>
+              The Mulembe Community NSW Welfare Fund was created so that when difficult times arise, we can stand 
+              together in strength and compassion. Through member contributions and donations, the fund provides 
+              financial and emotional support to families during bereavement.
+            </p>
           </div>
-          
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Mulembe Community NSW Inc. Registration Form</h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">Apply for welfare assistance from the Mulembe Community NSW. Please fill out all required fields accurately.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Applicant Details */}
-          <section className="bg-white rounded-xl shadow-lg">
-            <div className="rounded-t-xl bg-black text-white px-6 py-3 border-b-4 border-luhya-gold">
-              <h2 className="text-lg font-semibold">Applicant Details</h2>
-            </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-900 mb-2">First/Given Name *</label>
-                  <input id="firstName" type="text" value={formData.firstName} onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-                <div>
-                  <label htmlFor="middleName" className="block text-sm font-medium text-gray-900 mb-2">Middle Name</label>
-                  <input id="middleName" type="text" value={formData.middleName} onChange={(e) => setFormData(prev => ({ ...prev, middleName: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-                <div className="sm:col-span-2 lg:col-span-1">
-                  <label htmlFor="surname" className="block text-sm font-medium text-gray-900 mb-2">Surname/Family Name *</label>
-                  <input id="surname" type="text" value={formData.surname} onChange={(e) => setFormData(prev => ({ ...prev, surname: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <label htmlFor="street" className="block text-sm font-medium text-gray-900 mb-2">Street Address *</label>
-                  <input id="street" type="text" value={formData.street} onChange={(e) => setFormData(prev => ({ ...prev, street: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                <div>
-                  <label htmlFor="suburb" className="block text-sm font-medium text-gray-900 mb-2">Suburb/Town *</label>
-                  <input id="suburb" type="text" value={formData.suburb} onChange={(e) => setFormData(prev => ({ ...prev, suburb: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-                <div>
-                  <label htmlFor="state" className="block text-sm font-medium text-gray-900 mb-2">State/Territory *</label>
-                  <select id="state" value={formData.state} onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold">
-                    <option value="">Select State</option>
-                    <option value="NSW">New South Wales</option>
-                    <option value="VIC">Victoria</option>
-                    <option value="QLD">Queensland</option>
-                    <option value="WA">Western Australia</option>
-                    <option value="SA">South Australia</option>
-                    <option value="TAS">Tasmania</option>
-                    <option value="ACT">Australian Capital Territory</option>
-                    <option value="NT">Northern Territory</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="postcode" className="block text-sm font-medium text-gray-900 mb-2">Postcode *</label>
-                  <input id="postcode" type="text" value={formData.postcode} onChange={(e) => setFormData(prev => ({ ...prev, postcode: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="country" className="block text-sm font-medium text-gray-900 mb-2">Country</label>
-                  <input id="country" type="text" value={formData.country} onChange={(e) => setFormData(prev => ({ ...prev, country: e.target.value }))} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-2">Phone *</label>
-                  <input id="phone" type="tel" value={formData.phone} onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="md:col-span-2">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">Email *</label>
-                  <input id="email" type="email" value={formData.email} onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))} required className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Welfare Beneficiaries */}
-          <section className="bg-white rounded-xl shadow-lg">
-            <div className="rounded-t-xl bg-black text-white px-6 py-3 border-b-4 border-luhya-gold">
-              <h2 className="text-lg font-semibold">Welfare Beneficiaries (5 Family Members)</h2>
-            </div>
-            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-              {beneficiaries.map((beneficiary, index) => (
-                <div key={index} className="border border-gray-200 rounded-lg p-6 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-luhya-gold text-black font-bold">#{index + 1}</span>
-                      <h4 className="text-lg font-semibold">Beneficiary</h4>
-                    </div>
-                    {beneficiaries.length > 1 && (
-                      <button type="button" onClick={() => removeBeneficiary(index)} className="px-3 py-1 text-sm border border-red-300 text-red-600 rounded hover:bg-red-50">Remove</button>
-                    )}
+        {/* Support Coverage */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold mb-8 text-center text-luhya-navy">This support can help cover urgent costs such as:</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {welfareServices.map((service, index) => (
+              <Card key={index} className={`group hover:shadow-[var(--shadow-clean)] transition-all duration-300 ${
+                service.highlight 
+                  ? 'border-luhya-red/30 bg-gradient-to-br from-luhya-red/5 to-luhya-gold/5' 
+                  : 'border-luhya-gold/20'
+              }`}>
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 ${
+                    service.highlight
+                      ? 'bg-gradient-to-br from-luhya-red to-luhya-gold'
+                      : 'bg-gradient-to-br from-luhya-gold to-luhya-green'
+                  }`}>
+                    <service.icon className="w-8 h-8 text-white" />
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label htmlFor={`ben-${index}-firstName`} className="block text-sm font-medium text-gray-900 mb-2">First/Given Name</label>
-                      <input id={`ben-${index}-firstName`} type="text" value={beneficiary.firstName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateBeneficiary(index, 'firstName', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                    </div>
-                    <div>
-                      <label htmlFor={`ben-${index}-middleName`} className="block text-sm font-medium text-gray-900 mb-2">Middle Name</label>
-                      <input id={`ben-${index}-middleName`} type="text" value={beneficiary.middleName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateBeneficiary(index, 'middleName', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                    </div>
-                    <div>
-                      <label htmlFor={`ben-${index}-surname`} className="block text-sm font-medium text-gray-900 mb-2">Surname/Family Name</label>
-                      <input id={`ben-${index}-surname`} type="text" value={beneficiary.surname} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateBeneficiary(index, 'surname', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor={`ben-${index}-dob`} className="block text-sm font-medium text-gray-900 mb-2">Date of Birth</label>
-                      <input id={`ben-${index}-dob`} type="date" value={beneficiary.dateOfBirth} onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateBeneficiary(index, 'dateOfBirth', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold" />
-                    </div>
-                    <div>
-                      <label htmlFor={`ben-${index}-relationship`} className="block text-sm font-medium text-gray-900 mb-2">Relationship</label>
-                      <select id={`ben-${index}-relationship`} value={beneficiary.relationship} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateBeneficiary(index, 'relationship', e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-luhya-gold">
-                        <option value="">Select...</option>
-                        <option value="Spouse">Spouse</option>
-                        <option value="Child">Child</option>
-                        <option value="Parent">Parent</option>
-                        <option value="Sibling">Sibling</option>
-                        <option value="Relative">Relative</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              {beneficiaries.length < 5 && (
-                <button type="button" onClick={addBeneficiary} className="w-full px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">Add Another Beneficiary</button>
-              )}
-            </div>
-          </section>
-
-          {/* Signature */}
-          <section className="bg-white rounded-xl shadow-lg">
-            <div className="rounded-t-xl bg-black text-white px-6 py-3 border-b-4 border-luhya-gold">
-              <h2 className="text-lg font-semibold">Signature</h2>
-            </div>
-            <div className="p-4 sm:p-6">
-              <p className="text-sm font-medium text-gray-900 mb-3">Please sign below</p>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-2">
-                <div
-                  onMouseDown={startDrawing}
-                  onMouseMove={draw}
-                  onMouseUp={endDrawing}
-                  onMouseLeave={endDrawing}
-                  onTouchStart={startDrawing}
-                  onTouchMove={draw}
-                  onTouchEnd={endDrawing}
-                  className="relative w-full h-48 bg-white rounded-md"
-                >
-                  <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-                </div>
-              </div>
-              <div className="flex items-center gap-2 mt-3">
-                <button type="button" onClick={clearSignature} className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">Clear</button>
-                <button type="button" onClick={undoSignature} className="px-3 py-1 text-sm border border-gray-300 rounded hover:bg-gray-50">Undo</button>
-              </div>
-            </div>
-          </section>
-
-          {/* Declarations */}
-          <section className="bg-white rounded-xl shadow-lg">
-            <div className="rounded-t-xl bg-black text-white px-6 py-3 border-b-4 border-luhya-gold">
-              <h2 className="text-lg font-semibold">Declarations</h2>
-            </div>
-            <div className="p-4 sm:p-6 space-y-4">
-              <label htmlFor="constitution" className="flex items-start gap-3">
-                <input type="checkbox" id="constitution" checked={formData.constitution} onChange={(e) => setFormData(prev => ({ ...prev, constitution: e.target.checked }))} required className="mt-1 h-4 w-4 text-luhya-gold focus:ring-luhya-gold border-gray-300 rounded" />
-                <span className="text-sm leading-relaxed">I confirm I have read and understand the Constitution of the Association and agree to abide by it.</span>
-              </label>
-              <label htmlFor="consent" className="flex items-start gap-3">
-                <input type="checkbox" id="consent" checked={formData.consent} onChange={(e) => setFormData(prev => ({ ...prev, consent: e.target.checked }))} required className="mt-1 h-4 w-4 text-luhya-gold focus:ring-luhya-gold border-gray-300 rounded" />
-                <span className="text-sm leading-relaxed">I consent to my personal information being collected, stored, and used for membership administration in accordance with the Privacy Notice below.</span>
-              </label>
-              <p className="text-sm text-gray-600 italic">These must be checked to submit.</p>
-            </div>
-          </section>
-
-          {/* Controls */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-            <button type="button" onClick={handlePrint} className="w-full sm:w-auto px-4 py-2 rounded-md border border-luhya-gold text-black bg-white hover:bg-luhya-gold/10">Print / Save as PDF</button>
-            <button type="submit" disabled={isSubmitting} className="w-full sm:w-auto px-6 py-2 rounded-md bg-luhya-gold text-black font-semibold hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed">{isSubmitting ? "Submitting..." : "Submit"}</button>
+                  
+                  <h4 className={`font-semibold text-lg mb-3 ${
+                    service.highlight ? 'text-luhya-red' : 'text-luhya-navy'
+                  }`}>
+                    {service.title}
+                  </h4>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
+        </div>
 
-          {/* Privacy Notice */}
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 sm:p-6">
-            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Privacy Notice</h3>
-            <p className="text-xs sm:text-sm text-gray-800">The Mulembe Community NSW collects personal information to administer membership and welfare beneficiary records. Your data will be stored securely and only used for lawful purposes related to the Association's functions. You may request access to, or correction of, your information by contacting the Secretary.</p>
+        {/* Philosophy Section */}
+        <div className="mb-16 bg-gradient-to-r from-luhya-gold/10 to-luhya-green/10 p-8 rounded-2xl border border-luhya-gold/20">
+          <div className="text-center max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold mb-6 text-luhya-navy">Our Philosophy</h3>
+            <div className="space-y-4 text-lg text-muted-foreground">
+              <p>
+                Joining the Welfare Fund is not about expecting loss—it's about preparing with wisdom, unity, and love. 
+                It is a way of saying: <span className="font-semibold text-luhya-gold">"When life becomes heavy, your community will carry part of the weight with you."</span>
+              </p>
+              <p>
+                Together, we preserve not only our culture but also the spirit of solidarity that defines us as Luhyas—because in unity, there is strength.
+              </p>
+            </div>
           </div>
-        </form>
+        </div>
+
+        {/* Support Process */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold mb-8 text-center text-luhya-navy">How Our Support Works</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {supportProcess.map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-luhya-navy to-luhya-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-white">{step.step}</span>
+                </div>
+                <h4 className="font-semibold text-lg mb-2 text-luhya-navy">{step.title}</h4>
+                <p className="text-sm text-muted-foreground">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Comprehensive Membership Application Form */}
+        <div className="mt-16 bg-white p-8 rounded-2xl border border-luhya-gold/20 shadow-[var(--shadow-clean)]">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Mulembe Community NSW Inc. Registration Form</h3>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Complete this form to join our community and access welfare benefits. All information will be kept confidential.
+              </p>
+            </div>
+
+            <div className="max-w-6xl mx-auto">
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {/* Applicant Details Section */}
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
+                  <h4 className="text-xl font-bold text-white">Applicant Details</h4>
+                </div>
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6 space-y-6">
+                  <div className="grid md:grid-cols-4 gap-4">
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">First/Given Name *</Label>
+                        <Input
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                        required
+                          className="border-luhya-gold/30 focus:border-luhya-gold"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Middle Name</Label>
+                        <Input
+                        name="middleName"
+                        value={formData.middleName}
+                          onChange={handleInputChange}
+                          className="border-luhya-gold/30 focus:border-luhya-gold"
+                        />
+                    </div>
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Surname/Family Name *</Label>
+                        <Input
+                        name="surname"
+                        value={formData.surname}
+                        onChange={handleInputChange}
+                          required
+                          className="border-luhya-gold/30 focus:border-luhya-gold"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Email *</Label>
+                        <Input
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                          required
+                          className="border-luhya-gold/30 focus:border-luhya-gold"
+                        />
+                      </div>
+                    </div>
+
+                  <div className="grid md:grid-cols-4 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Street Address *</Label>
+                      <Input
+                        name="street"
+                        value={formData.street}
+                        onChange={handleInputChange}
+                        required
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Suburb/Town *</Label>
+                      <Input
+                        name="suburb"
+                        value={formData.suburb}
+                        onChange={handleInputChange}
+                        required
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                      </div>
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">State/Territory *</Label>
+                      <Input
+                        name="state"
+                        value={formData.state}
+                        onChange={handleInputChange}
+                        required
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                      </div>
+                      <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Postcode *</Label>
+                      <Input
+                        name="postcode"
+                        value={formData.postcode}
+                        onChange={handleInputChange}
+                        required
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Country *</Label>
+                      <Input
+                        name="country"
+                        value={formData.country}
+                        onChange={handleInputChange}
+                        required
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Phone *</Label>
+                      <Input
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="+61 ..."
+                        required
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                  </div>
+                    </div>
+
+                {/* Welfare Beneficiaries Section */}
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
+                  <h4 className="text-xl font-bold text-white">Welfare Beneficiaries (5 Family Members)</h4>
+                </div>
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6 space-y-6">
+                  {formData.beneficiaries.map((beneficiary, index) => (
+                    <div key={index} className="border border-luhya-gold/20 rounded-lg p-4">
+                      <div className="flex items-center gap-2 mb-4">
+                        <span className="bg-luhya-gold text-luhya-navy px-3 py-1 rounded-full text-sm font-bold">
+                          #{index + 1}
+                        </span>
+                        <span className="font-semibold text-luhya-navy">Beneficiary</span>
+                      </div>
+                      
+                      <div className="grid md:grid-cols-3 gap-4">
+                        <div className="space-y-2">
+                          <Label className="text-luhya-navy font-medium">First/Given Name</Label>
+                          <Input
+                            value={beneficiary.firstName}
+                            onChange={(e) => handleBeneficiaryChange(index, 'firstName', e.target.value)}
+                            className="border-luhya-gold/30 focus:border-luhya-gold"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-luhya-navy font-medium">Middle Name</Label>
+                          <Input
+                            value={beneficiary.middleName}
+                            onChange={(e) => handleBeneficiaryChange(index, 'middleName', e.target.value)}
+                            className="border-luhya-gold/30 focus:border-luhya-gold"
+                          />
+                        </div>
+                    <div className="space-y-2">
+                          <Label className="text-luhya-navy font-medium">Surname/Family Name</Label>
+                          <Input
+                            value={beneficiary.surname}
+                            onChange={(e) => handleBeneficiaryChange(index, 'surname', e.target.value)}
+                            className="border-luhya-gold/30 focus:border-luhya-gold"
+                          />
+                    </div>
+                  </div>
+
+                      <div className="grid md:grid-cols-2 gap-4 mt-4">
+                        <div className="space-y-2">
+                          <Label className="text-luhya-navy font-medium">Date of Birth</Label>
+                          <Input
+                            type="date"
+                            value={beneficiary.dateOfBirth}
+                            onChange={(e) => handleBeneficiaryChange(index, 'dateOfBirth', e.target.value)}
+                            className="border-luhya-gold/30 focus:border-luhya-gold"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-luhya-navy font-medium">Relationship</Label>
+                          <Select value={beneficiary.relationship} onValueChange={(value) => handleBeneficiaryChange(index, 'relationship', value)}>
+                            <SelectTrigger className="border-luhya-gold/30 focus:border-luhya-gold">
+                              <SelectValue placeholder="Select relationship" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="spouse">Spouse</SelectItem>
+                              <SelectItem value="child">Child</SelectItem>
+                              <SelectItem value="parent">Parent</SelectItem>
+                              <SelectItem value="sibling">Sibling</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Signature Section */}
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
+                  <h4 className="text-xl font-bold text-white">Signature</h4>
+                </div>
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
+                    <p className="text-center text-gray-500 mb-4">Please sign below</p>
+                    <canvas
+                      ref={signatureRef}
+                      width={800}
+                      height={200}
+                      className="border border-gray-300 rounded-lg w-full touch-none"
+                      onMouseDown={startDrawing}
+                      onMouseMove={draw}
+                      onMouseUp={stopDrawing}
+                      onMouseLeave={stopDrawing}
+                      onTouchStart={startDrawingTouch}
+                      onTouchMove={drawTouch}
+                      onTouchEnd={stopDrawingTouch}
+                    />
+                    <div className="flex gap-2 mt-4">
+                      <Button type="button" variant="outline" onClick={clearSignature}>
+                        Clear
+                      </Button>
+                      <Button type="button" variant="outline" onClick={undoSignature}>
+                        Undo
+                      </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                {/* Declarations Section */}
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
+                  <h4 className="text-xl font-bold text-white">Declarations</h4>
+                </div>
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6 space-y-4">
+                  <div className="bg-luhya-gold/10 p-4 rounded-lg border-l-4 border-luhya-gold">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="constitutionConsent"
+                        checked={formData.constitutionConsent}
+                        onChange={(e) => handleCheckboxChange('constitutionConsent', e.target.checked)}
+                        className="mt-1"
+                        required
+                      />
+                      <label htmlFor="constitutionConsent" className="text-sm text-luhya-navy">
+                        I confirm I have read and understand the Constitution of the Association and agree to abide by it.
+                            </label>
+                          </div>
+                        </div>
+                  
+                  <div className="bg-luhya-gold/10 p-4 rounded-lg border-l-4 border-luhya-gold">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="privacyConsent"
+                        checked={formData.privacyConsent}
+                        onChange={(e) => handleCheckboxChange('privacyConsent', e.target.checked)}
+                        className="mt-1"
+                        required
+                      />
+                      <label htmlFor="privacyConsent" className="text-sm text-luhya-navy">
+                        I consent to my personal information being collected, stored, and used for membership administration in accordance with the Privacy Notice below.
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <p className="text-xs text-gray-500">These must be checked to submit.</p>
+                </div>
+
+                {/* Privacy Notice */}
+                <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                  <h5 className="font-semibold text-luhya-navy mb-2">Privacy Notice</h5>
+                  <p className="text-sm text-gray-600">
+                    The Association collects personal information to administer membership and welfare beneficiary records. 
+                    Your data will be stored securely and only used for lawful purposes related to the Association's functions. 
+                    You may request access to, or correction of, your information by contacting the Secretary.
+                  </p>
+                  </div>
+
+                  {/* Submit Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 border-t-4 border-luhya-gold">
+                  <Button type="button" variant="outline" size="lg">
+                    Print / Save as PDF
+                  </Button>
+                    <Button type="submit" variant="community" size="lg" className="group">
+                    Submit
+                      <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </div>
+                </form>
+            </div>
+          </div>
       </div>
-    </div>
+    </section>
   );
 };
 

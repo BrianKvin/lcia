@@ -1,6 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, Heart, Users, MapPin } from "lucide-react";
+import img1 from "@/assets/image (1).jpg";
+import img2 from "@/assets/image (2).jpg";
+import img3 from "@/assets/image (3).jpg";
+import img4 from "@/assets/image (4).jpg";
+import vid1 from "@/assets/PixVerse_V5_Image_Text_360P_Generate_me_a_vide.mp4";
+import vid2 from "@/assets/PixVerse_V5_Image_Text_360P_Generate_me_a_vide (1).mp4";
+import vid3 from "@/assets/PixVerse_V5_Image_Text_360P_Generate_me_a_vide (2).mp4";
+import vid4 from "@/assets/PixVerse_V5_Image_Text_360P_Generate_me_a_vide (3).mp4";
 
 const Gallery = () => {
   const galleryItems = [
@@ -9,7 +17,7 @@ const Gallery = () => {
       title: "Cultural Heritage Day 2024",
       description: "Celebrating our rich Luhya traditions with traditional dances and music",
       category: "Cultural Events",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
+      image: img1,
       date: "March 2024"
     },
     {
@@ -17,7 +25,7 @@ const Gallery = () => {
       title: "Community Harambee",
       description: "Coming together to support one of our families in need",
       category: "Community Support",
-      image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&h=400&fit=crop",
+      image: img2,
       date: "February 2024"
     },
     {
@@ -25,7 +33,7 @@ const Gallery = () => {
       title: "Children's Day Celebration",
       description: "Young ones learning about their heritage through storytelling",
       category: "Youth Programs",
-      image: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&h=400&fit=crop",
+      image: img3,
       date: "January 2024"
     },
     {
@@ -33,31 +41,30 @@ const Gallery = () => {
       title: "Traditional Cooking Workshop",
       description: "Mothers teaching the preparation of authentic Luhya dishes",
       category: "Cultural Workshops",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop",
+      image: img4,
       date: "December 2023"
     },
     {
       id: 5,
-      title: "Wedding Celebration",
-      description: "Beautiful traditional Luhya wedding ceremony with the community",
-      category: "Life Events",
-      image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop",
-      date: "November 2023"
-    },
-    {
-      id: 6,
       title: "Annual Sports Day",
       description: "Friendly competition and unity through sports activities",
       category: "Recreation",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+      image: img1,
       date: "October 2023"
     }
+  ];
+
+  const videoItems = [
+    { id: 6, title: "Community Highlights", category: "Videos", src: vid1, date: "2025" },
+    { id: 7, title: "Cultural Moments", category: "Videos", src: vid2, date: "2025" },
+    { id: 8, title: "Events Recap", category: "Videos", src: vid3, date: "2025" },
+    { id: 9, title: "Youth Activities", category: "Videos", src: vid4, date: "2025" },
   ];
 
   const categories = ["All", "Cultural Events", "Community Support", "Youth Programs", "Cultural Workshops", "Life Events", "Recreation"];
 
   return (
-    <section id="gallery" className="py-20 bg-gradient-to-b from-background to-muted/30">
+    <section id="gallery" className="py-20 bg-white">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -88,7 +95,7 @@ const Gallery = () => {
         {/* Gallery Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {galleryItems.map((item) => (
-            <Card key={item.id} className="group hover:shadow-[var(--shadow-warm)] transition-all duration-500 overflow-hidden">
+            <Card key={item.id} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-500 overflow-hidden">
               <div className="relative overflow-hidden">
                 <img
                   src={item.image}
@@ -129,6 +136,43 @@ const Gallery = () => {
                   <Button variant="ghost" size="sm" className="text-luhya-gold hover:text-luhya-gold hover:bg-luhya-gold/10">
                     View Full
                   </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Video Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {videoItems.map((item) => (
+            <Card key={item.id} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-500 overflow-hidden">
+              <div className="relative overflow-hidden">
+                <video controls className="w-full h-64 object-cover">
+                  <source src={item.src} type="video/mp4" />
+                </video>
+                <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="flex items-center gap-2 text-sm">
+                    <Camera className="w-4 h-4" />
+                    <span>{item.date}</span>
+                  </div>
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs bg-luhya-gold/20 text-luhya-gold px-2 py-1 rounded-full">
+                    {item.category}
+                  </span>
+                </div>
+                <h3 className="font-semibold text-lg mb-2 group-hover:text-luhya-gold transition-colors">
+                  {item.title}
+                </h3>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Users className="w-3 h-3" />
+                      <span>Community</span>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

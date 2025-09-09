@@ -5,7 +5,6 @@
 // CONFIGURE THIS:
 $to = 'mulembecommunitysydneyau@gmail.com';
 $from = 'no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'example.com');
-$subject = 'New Welfare Form Submission';
 
 header('Content-Type: application/json');
 header('Cache-Control: no-store');
@@ -28,12 +27,20 @@ if (!$data) {
 
 $applicant = $data['applicant'] ?? [];
 $beneficiaries = $data['beneficiaries'] ?? [];
-$signatureDataUrl = $data['signatureDataUrl'] ?? '';
+$signature = $data['signature'] ?? '';
+$constitutionConsent = $data['constitutionConsent'] ?? false;
+$privacyConsent = $data['privacyConsent'] ?? false;
+
+// Set email subject with applicant name
+$subject = 'New MCNSW Registration Form Submission - ' . ($applicant['firstName'] ?? 'Unknown') . ' ' . ($applicant['surname'] ?? '');
 
 // Build HTML body
 function e($v) { return htmlspecialchars((string)$v ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
 
-$htmlBody = '<h2>New Welfare Form Submission</h2>';
+$htmlBody = '<h2>New MCNSW Registration Form Submission</h2>';
+$htmlBody .= '<p><strong>Submission Date:</strong> ' . date('Y-m-d H:i:s') . '</p>';
+$htmlBody .= '<p><strong>Submitted via:</strong> Mulembe Community NSW Website</p>';
+$htmlBody .= '<hr>';
 $htmlBody .= '<h3>Applicant Details</h3>';
 $fields = [
   'First Name' => $applicant['firstName'] ?? '',
@@ -41,13 +48,13 @@ $fields = [
   'Surname' => $applicant['surname'] ?? '',
   'Email' => $applicant['email'] ?? '',
   'Phone' => $applicant['phone'] ?? '',
-  'Street' => $applicant['street'] ?? '',
-  'Suburb' => $applicant['suburb'] ?? '',
-  'State' => $applicant['state'] ?? '',
+  'Street Address' => $applicant['street'] ?? '',
+  'Suburb/Town' => $applicant['suburb'] ?? '',
+  'State/Territory' => $applicant['state'] ?? '',
   'Postcode' => $applicant['postcode'] ?? '',
   'Country' => $applicant['country'] ?? '',
-  'Accepted Constitution' => !empty($applicant['constitution']) ? 'Yes' : 'No',
-  'Accepted Consent' => !empty($applicant['consent']) ? 'Yes' : 'No',
+  'Constitution Consent' => $constitutionConsent ? 'Yes' : 'No',
+  'Privacy Consent' => $privacyConsent ? 'Yes' : 'No',
 ];
 $htmlBody .= '<table border="1" cellpadding="6" cellspacing="0">';
 foreach ($fields as $k => $v) {
@@ -76,10 +83,10 @@ if (is_array($beneficiaries) && count($beneficiaries) > 0) {
 }
 
 // Optional inline signature preview
-if (is_string($signatureDataUrl) && strpos($signatureDataUrl, 'data:image/png;base64,') === 0) {
-  $htmlBody .= '<h3>Signature</h3>';
+if (is_string($signature) && strpos($signature, 'data:image/png;base64,') === 0) {
+  $htmlBody .= '<h3>Digital Signature</h3>';
   $htmlBody .= '<p><em>Attached as PNG. Inline preview below (may not render in all clients):</em></p>';
-  $htmlBody .= '<img alt="Signature" style="max-width:400px;border:1px solid #ccc" src="' . e($signatureDataUrl) . '" />';
+  $htmlBody .= '<img alt="Signature" style="max-width:400px;border:1px solid #ccc" src="' . e($signature) . '" />';
 }
 
 // Create attachments
@@ -123,8 +130,8 @@ $attachments[] = [
 
 // Signature attachment if provided
 $signatureAttached = false;
-if (is_string($signatureDataUrl) && strpos($signatureDataUrl, 'data:image/png;base64,') === 0) {
-  $base64 = substr($signatureDataUrl, strlen('data:image/png;base64,'));
+if (is_string($signature) && strpos($signature, 'data:image/png;base64,') === 0) {
+  $base64 = substr($signature, strlen('data:image/png;base64,'));
   $binary = base64_decode($base64);
   if ($binary !== false) {
     $attachments[] = [
@@ -169,10 +176,10 @@ $message .= '--' . $boundary . '--';
 $ok = @mail($to, $subject, $message, implode("\r\n", $headers));
 
 if ($ok) {
-  echo json_encode(['ok' => true, 'message' => 'Submission sent', 'signatureAttached' => $signatureAttached]);
+  echo json_encode(['ok' => true, 'message' => 'Registration form submitted successfully to MCNSW', 'signatureAttached' => $signatureAttached]);
 } else {
   http_response_code(500);
-  echo json_encode(['ok' => false, 'message' => 'Failed to send email']);
+  echo json_encode(['ok' => false, 'message' => 'Failed to send registration form. Please try again or contact us directly.']);
 }
 
 
