@@ -111,7 +111,9 @@ const Welfare = () => {
     try {
       const snap = canvas.toDataURL('image/png');
       setHistory(prev => [...prev, snap].slice(-20));
-    } catch {}
+    } catch {
+      // Ignore errors when saving snapshot
+    }
 
     ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
@@ -161,7 +163,9 @@ const Welfare = () => {
     try {
       const snap = canvas.toDataURL('image/png');
       setHistory(prev => [...prev, snap].slice(-20));
-    } catch {}
+    } catch {
+      // Ignore errors when saving snapshot
+    }
 
     const t = e.touches[0];
     const { x, y } = getTouchPos(t, canvas);
@@ -257,8 +261,8 @@ const Welfare = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error((data as any).message || 'Submission failed');
+      const data = await res.json().catch(() => ({})) as { message?: string };
+      if (!res.ok) throw new Error(data.message || 'Submission failed');
       alert('Thank you for your registration! Your form has been submitted successfully to the Mulembe Community NSW team. We will contact you soon.');
       // Reset form
       setFormData({
@@ -584,7 +588,7 @@ const Welfare = () => {
                               <SelectValue placeholder="Select relationship" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="spouse">Spouse</SelectItem>
+                              <SelectItem value="partner">Partner</SelectItem>
                               <SelectItem value="child">Child</SelectItem>
                               <SelectItem value="parent">Parent</SelectItem>
                               <SelectItem value="sibling">Sibling</SelectItem>
