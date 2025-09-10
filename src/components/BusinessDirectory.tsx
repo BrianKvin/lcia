@@ -19,7 +19,8 @@ const BusinessDirectory = () => {
     
     {
       name: "Pampered Films",
-      owner: "Terence Mukambi",
+      owner: "",
+      partnership: true,
       category: "Professional Services",
       description: "Professional videography and photography services for all occasions",
       location: "Parramatta, NSW",
@@ -120,7 +121,11 @@ const BusinessDirectory = () => {
                         />
                       </div>
                     )}
-                    <p className="text-sm text-luhya-gold font-medium mb-2">Owner: {business.owner}</p>
+                    {business.partnership ? (
+                      <p className="text-sm text-luhya-gold font-medium mb-2">Partnership</p>
+                    ) : business.owner ? (
+                      <p className="text-sm text-luhya-gold font-medium mb-2">Owner: {business.owner}</p>
+                    ) : null}
                     <p className="text-sm text-muted-foreground mb-3">{business.description}</p>
                   </div>
 

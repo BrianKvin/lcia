@@ -402,7 +402,7 @@ const Welfare = () => {
         {/* Comprehensive Membership Application Form */}
         <div className="mt-16 bg-white p-8 rounded-2xl border border-luhya-gold/20 shadow-[var(--shadow-clean)]">
             <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Mulembe Community NSW Inc. Registration Form</h3>
+              <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Mulembe Community NSW<br />Welfare Membership Form</h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Complete this form to join our community and access welfare benefits. All information will be kept confidential.
               </p>
