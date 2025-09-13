@@ -51,14 +51,14 @@ const Gallery = () => {
       category: "Recreation",
       image: img1,
       date: "October 2023"
-    }
+    },
   ];
 
   const videoItems = [
-    { id: 6, title: "Community Highlights", category: "Videos", src: vid1, date: "2025" },
-    { id: 7, title: "Cultural Moments", category: "Videos", src: vid2, date: "2025" },
-    { id: 8, title: "Events Recap", category: "Videos", src: vid3, date: "2025" },
-    { id: 9, title: "Youth Activities", category: "Videos", src: vid4, date: "2025" },
+    { id: 7, title: "Community Highlights", category: "Videos", src: vid1, date: "2025" },
+    { id: 8, title: "Cultural Moments", category: "Videos", src: vid2, date: "2025" },
+    { id: 9, title: "Events Recap", category: "Videos", src: vid3, date: "2025" },
+    { id: 10, title: "Youth Activities", category: "Videos", src: vid4, date: "2025" },
   ];
 
   const categories = ["All", "Cultural Events", "Community Support", "Youth Programs", "Cultural Workshops", "Life Events", "Recreation"];
@@ -95,13 +95,13 @@ const Gallery = () => {
         {/* Gallery Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {galleryItems.map((item) => (
-            <Card key={item.id} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-500 overflow-hidden">
-              <div className="relative overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
-                />
+             <Card key={item.id} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-500 overflow-hidden">
+               <div className={`relative overflow-hidden ${item.id === 6 ? 'aspect-[3/4]' : 'h-64'}`}>
+                 <img
+                   src={item.image}
+                   alt={item.title}
+                   className={`w-full ${item.id === 6 ? 'h-full object-cover object-top' : 'h-64 object-cover'} transition-transform duration-500 group-hover:scale-110`}
+                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute bottom-4 left-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="flex items-center gap-2 text-sm">
@@ -185,7 +185,7 @@ const Gallery = () => {
             <div className="w-16 h-16 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center mx-auto mb-4">
               <Camera className="w-8 h-8 text-white" />
             </div>
-            <div className="text-2xl font-bold text-luhya-gold">500+</div>
+            <div className="text-2xl font-bold text-luhya-gold">200+</div>
             <div className="text-sm text-muted-foreground">Photos Captured</div>
           </div>
           <div className="text-center">

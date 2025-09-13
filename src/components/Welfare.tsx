@@ -381,7 +381,7 @@ const Welfare = () => {
                 It is a way of saying: <span className="font-semibold text-luhya-gold">"When life becomes heavy, your community will carry part of the weight with you."</span>
               </p>
               <p>
-                Together, we preserve not only our culture but also the spirit of solidarity that defines us as Luhyas—because in unity, there is strength.
+                Together we carry the weight, together we find strength.
               </p>
             </div>
           </div>

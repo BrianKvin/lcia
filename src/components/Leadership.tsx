@@ -3,7 +3,7 @@ import { Users, Shield, Heart, DollarSign, FileText } from "lucide-react";
 // Explicitly import as a URL to satisfy TS image typing
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import chairImg from "@/assets/IMG_3862120.JPEG";
+import chairImg from "@/assets/IMG_4201.JPG";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import publicOfficerImg from "@/assets/WhatsApp Image 2025-09-10 at 6.21.52 PM.jpeg";

@@ -28,7 +28,7 @@ const Hero = () => {
                   Far from the rolling hills and rich traditions of Western Kenya, the spirit of the Luhya people continues to thrive here in New South Wales. What began with a handful of friends longing to stay connected to their roots has grown into a vibrant and diverse community that brings together all Luhya sub-tribes under one roof.
                 </p>
                 <p>
-                  Join our growing family of 500+ members representing all 18 Luhya sub-tribes, united in preserving our cultural heritage while building meaningful connections in our new home.
+                  Join our growing family of 200+ members representing all 18 Luhya sub-tribes, united in preserving our cultural heritage while building meaningful connections in our new home.
                 </p>
               </div>
             </div>
@@ -36,7 +36,7 @@ const Hero = () => {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
               <div className="text-center">
-                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-luhya-red">100+</div>
+                <div className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-luhya-red">200+</div>
                 <div className="text-xs sm:text-sm text-muted-foreground">Members</div>
               </div>
               <div className="text-center">

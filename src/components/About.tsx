@@ -50,7 +50,7 @@ const About = () => {
               At the Mulembe Community, we gather four times a year to celebrate, share, and strengthen our heritage. Through music, dance, food, and storytelling, we preserve the beauty of our culture and pass it on to the next generation—even while abroad.
             </p>
             <p>
-              We welcome all members of the Luhya community living in Sydney to join us, connect with their heritage, and experience the power of belonging. Together, we celebrate who we are, where we come from, and the bonds that unite us—both in Kenya and here in Australia.
+              We welcome all members of the Luhya community living in NSW to join us, connect with their heritage, and experience the power of belonging. Together, we celebrate who we are, where we come from, and the bonds that unite us—both in Kenya and here in Australia.
             </p>
           </div>
         </div>
