@@ -113,11 +113,11 @@ const BusinessDirectory = () => {
                       {business.name}
                     </h4>
                     {business.image && (
-                      <div className="mb-3">
+                      <div className="mb-3 flex justify-center">
                         <img 
                           src={business.image} 
                           alt={business.name}
-                          className="w-full h-48 object-cover rounded-lg shadow-md"
+                          className="max-w-full h-auto max-h-96 object-contain rounded-lg shadow-md bg-gray-50"
                         />
                       </div>
                     )}

@@ -1,7 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Star, Quote, MessageCircle, Phone, Mail } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import { ADDRESS_LINE_1, ADDRESS_LINE_2, PHONE_DISPLAY, PHONE_TEL, EMAIL } from "@/constants/contact";
+import { useState } from "react";
 
 const Community = () => {
   const testimonials = [
@@ -31,26 +32,50 @@ const Community = () => {
     }
   ];
 
-  const contactMethods = [
-    {
-      icon: MessageCircle,
-      title: "Community Forum",
-      description: "Join our online discussions",
-      action: "Visit Forum"
-    },
-    {
-      icon: Phone,
-      title: "Community Office",
-      description: "(555) 123-4567",
-      action: "Call Now"
-    },
-    {
-      icon: Mail,
-      title: "Email Us",
-      description: "hello@hearthstonevillage.com",
-      action: "Send Email"
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    mobile: ''
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/form-submit.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'community_registration',
+          fullName: formData.fullName,
+          email: formData.email,
+          mobile: formData.mobile,
+          timestamp: new Date().toISOString()
+        }),
+      });
+
+      if (response.ok) {
+        alert('Thank you for your interest! We will contact you soon to welcome you to our community.');
+        setFormData({ fullName: '', email: '', mobile: '' });
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      alert('There was a problem submitting your registration. Please try again or contact us directly.');
+    } finally {
+      setIsSubmitting(false);
     }
-  ];
+  };
 
   return (
     <section id="community" className="py-20 bg-white scroll-mt-24">
@@ -102,32 +127,81 @@ const Community = () => {
           ))}
         </div>
 
-        {/* Contact Section */}
+        {/* Registration Form Section */}
         <div className="bg-card rounded-2xl p-8 border border-border">
           <div className="text-center mb-12">
             <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              We'd love to welcome you to Hearthstone Village. Get in touch to learn 
-              more about our community and how to become a resident.
+              We'd love to welcome you to the Mulembe Community NSW. Fill out the form below 
+              and we'll contact you soon to help you become part of our family.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
-            {contactMethods.map((method, index) => (
-              <div key={index} className="text-center group">
-                <div className="w-16 h-16 bg-gradient-to-br from-community-warm-light to-community-sky-light rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <method.icon className="w-8 h-8 text-community-earth" />
-                </div>
-                <h4 className="font-semibold mb-2">{method.title}</h4>
-                <p className="text-sm text-muted-foreground mb-3">{method.description}</p>
-                <Button variant="communityOutline" size="sm">
-                  {method.action}
-                </Button>
+          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+            <div className="grid md:grid-cols-1 gap-6 mb-8">
+              <div className="space-y-2">
+                <label htmlFor="fullName" className="text-sm font-medium text-luhya-navy">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border border-luhya-gold/30 rounded-lg focus:border-luhya-gold focus:ring-2 focus:ring-luhya-gold/20 focus:outline-none transition-colors"
+                  placeholder="Enter your full name"
+                />
               </div>
-            ))}
-          </div>
 
-          <div className="text-center text-sm text-muted-foreground mb-4">
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium text-luhya-navy">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border border-luhya-gold/30 rounded-lg focus:border-luhya-gold focus:ring-2 focus:ring-luhya-gold/20 focus:outline-none transition-colors"
+                  placeholder="Enter your email address"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="mobile" className="text-sm font-medium text-luhya-navy">
+                  Mobile Number *
+                </label>
+                <input
+                  type="tel"
+                  id="mobile"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 border border-luhya-gold/30 rounded-lg focus:border-luhya-gold focus:ring-2 focus:ring-luhya-gold/20 focus:outline-none transition-colors"
+                  placeholder="Enter your mobile number"
+                />
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Button 
+                type="submit" 
+                variant="hero" 
+                size="lg" 
+                className="px-12"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Submitting...' : 'Join Our Community'}
+              </Button>
+            </div>
+          </form>
+
+          <div className="text-center text-sm text-muted-foreground mt-8">
             <p>{ADDRESS_LINE_1}</p>
             <p>{ADDRESS_LINE_2}</p>
             <p>
@@ -135,12 +209,6 @@ const Community = () => {
                <br/>
               <a href={`mailto:${EMAIL}`} className="underline hover:no-underline">{EMAIL}</a>
             </p>
-          </div>
-
-          <div className="text-center">
-            <Button variant="hero" size="lg" className="px-12">
-              Schedule a Community Tour
-            </Button>
           </div>
         </div>
       </div>

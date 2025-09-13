@@ -99,12 +99,86 @@ const Events = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="font-semibold mb-3 text-luhya-navy">Sub-tribes Spotlight</h4>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Discover the rich diversity of Luhya sub-tribes: Bukusu, Maragoli, Wanga, Tiriki, and more.
+                <h4 className="font-semibold mb-3 text-luhya-navy">🌿 Sub-tribes Spotlight</h4>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Discover the rich diversity of Luhya sub-tribes and their unique cultural heritage.
                 </p>
-                <div className="text-xs text-luhya-gold font-medium">
-                  Learn about traditions, customs, and unique practices of each sub-tribe.
+                <div className="space-y-3 max-h-96 overflow-y-auto">
+                  <div className="text-xs space-y-2">
+                    <div className="border-l-2 border-luhya-gold pl-3">
+                      <div className="font-semibold text-luhya-navy">1. Bukusu</div>
+                      <div className="text-muted-foreground">Bungoma & Mt. Elgon • Lubukusu • Famous for bravery, colorful initiation ceremonies, and strong community bonds.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-green pl-3">
+                      <div className="font-semibold text-luhya-navy">2. Maragoli (Logoli)</div>
+                      <div className="text-muted-foreground">Vihiga County • Lulogooli • Known for tea farming, ancestor naming traditions, and cultural preservation abroad.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-red pl-3">
+                      <div className="font-semibold text-luhya-navy">3. Wanga (Abawanga)</div>
+                      <div className="text-muted-foreground">Mumias & Matungu • Unique kingdom with Nabongo leadership • Blend of traditional values and modern influences.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-gold pl-3">
+                      <div className="font-semibold text-luhya-navy">4. Kabras</div>
+                      <div className="text-muted-foreground">Malava, Kakamega • Lukabarasi • Known for adaptability and sugarcane farming.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-green pl-3">
+                      <div className="font-semibold text-luhya-navy">5. Idakho</div>
+                      <div className="text-muted-foreground">Ikolomani, Kakamega • Lwidakho • UNESCO-recognized Isukuti drumming custodians.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-red pl-3">
+                      <div className="font-semibold text-luhya-navy">6. Isukha</div>
+                      <div className="text-muted-foreground">Neighbors to Idakho • Lwisukha • Rich oral traditions and Isukuti dance custodians.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-gold pl-3">
+                      <div className="font-semibold text-luhya-navy">7. Tsotso (Abatsotso)</div>
+                      <div className="text-muted-foreground">Western Kakamega • Farming-focused with vibrant clan networks and community ceremonies.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-green pl-3">
+                      <div className="font-semibold text-luhya-navy">8. Tiriki (AbaTiriki)</div>
+                      <div className="text-muted-foreground">Vihiga County • Ludirichi • Highland region with strong community bonds and rich folklore.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-red pl-3">
+                      <div className="font-semibold text-luhya-navy">9. Kisa (Abakisa)</div>
+                      <div className="text-muted-foreground">Khwisero, Butere-Mumias • Olushisa • Famous for Isukuti drums in celebrations.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-gold pl-3">
+                      <div className="font-semibold text-luhya-navy">10. Khayo</div>
+                      <div className="text-muted-foreground">Busia County • Lukhayo • Cross-border culture with Uganda, fishing and trade focus.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-green pl-3">
+                      <div className="font-semibold text-luhya-navy">11. Samia</div>
+                      <div className="text-muted-foreground">Busia County • Lusamia • Lake Victoria culture with fishing, boat-building, and colorful ceremonies.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-red pl-3">
+                      <div className="font-semibold text-luhya-navy">12. Marachi</div>
+                      <div className="text-muted-foreground">Busia County • Lumarachi • Warrior history with strong farming and fishing traditions.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-gold pl-3">
+                      <div className="font-semibold text-luhya-navy">13. Nyala (Banyala)</div>
+                      <div className="text-muted-foreground">Busia & Kakamega • Lunyala • Migration-shaped history with preserved ceremonies.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-green pl-3">
+                      <div className="font-semibold text-luhya-navy">14. Marama (Abamarama)</div>
+                      <div className="text-muted-foreground">Butere • Lumarama • Calm-natured with strong clan systems and farming traditions.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-red pl-3">
+                      <div className="font-semibold text-luhya-navy">15. Tachoni</div>
+                      <div className="text-muted-foreground">Lugari, Bungoma, Kakamega • Lutachoni • Proud warrior history with initiation ceremonies.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-gold pl-3">
+                      <div className="font-semibold text-luhya-navy">16. Nyole (Abanyole)</div>
+                      <div className="text-muted-foreground">Vihiga • Close-knit farming community with distinctive dialect and wedding traditions.</div>
+                    </div>
+                    <div className="border-l-2 border-luhya-green pl-3">
+                      <div className="font-semibold text-luhya-navy">17. Banyore</div>
+                      <div className="text-muted-foreground">Vihiga • Education-focused while preserving dialect, rituals, and clan ceremonies.</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 bg-gradient-to-r from-luhya-gold/10 to-luhya-green/10 rounded-lg border-l-4 border-luhya-gold">
+                  <div className="text-xs text-luhya-navy font-medium">
+                    ✨ Together, these sub-tribes form the beautiful mosaic of the Luhya nation — united by culture, language, and the belief that "Omundu khu mundu" (a person is because of other people).
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -149,7 +223,7 @@ const Events = () => {
                 </div>
                 <h4 className="font-semibold mb-3 text-luhya-navy">Language Corner</h4>
                 <p className="text-sm text-muted-foreground mb-3">
-                  Common Luhya greetings and phrases with pronunciations. (Working on this - liaising with people back home).
+                  Common Luhya greetings and phrases with pronunciations.
                 </p>
                 <div className="text-xs text-luhya-navy font-medium">
                   Keep our language alive and accessible to the next generation.
