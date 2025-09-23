@@ -51,7 +51,7 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-              <Button onClick={() => scrollToSection('business')} variant="hero" size="lg" className="group text-sm sm:text-base">
+              <Button onClick={() => scrollToSection('join-form')} variant="hero" size="lg" className="group text-sm sm:text-base">
                 Become a Member
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>

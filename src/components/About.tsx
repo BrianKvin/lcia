@@ -4,34 +4,34 @@ import { Home, Users, Sparkles, Shield, Heart, TreePine } from "lucide-react";
 const About = () => {
   const features = [
     {
-      icon: Home,
+      icon: TreePine,
       title: "Cultural Heritage",
-      description: "Preserving and celebrating our rich Luhya traditions and customs"
+      description: "Keeping Luhya traditions, language & customs alive"
     },
     {
       icon: Users,
       title: "Unity & Brotherhood",
-      description: "Building strong bonds among all 18 Luhya sub-tribes in NSW"
+      description: "Strong bonds across all Luhya sub-tribes in NSW"
     },
     {
       icon: Sparkles,
       title: "Community Events",
-      description: "Regular cultural celebrations that bring families together"
+      description: "Celebrations that bring families together 🎉"
     },
     {
       icon: Shield,
       title: "Support System",
-      description: "Emotional, social, and financial support for all members"
+      description: "Emotional, social & financial support for members"
     },
     {
       icon: Heart,
       title: "Welfare Program",
-      description: "Comprehensive assistance during times of need and bereavement"
+      description: "Standing together in times of loss & need 🌿"
     },
     {
-      icon: TreePine,
-      title: "Youth Development",
-      description: "Empowering the next generation with cultural knowledge and values"
+      icon: Home,
+      title: "Youth & Future",
+      description: "Teaching our kids where we come from with pride 🌍"
     }
   ];
 
@@ -45,12 +45,15 @@ const About = () => {
               Mulembe Community NSW
             </span>
           </h2>
-          <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-4">
+          <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-6">
             <p>
-              At the Mulembe Community, we gather four times a year to celebrate, share, and strengthen our heritage. Through music, dance, food, and storytelling, we preserve the beauty of our culture and pass it on to the next generation—even while abroad.
+              The Mulembe Community NSW was created to be a home away from home — a place where culture, support, and family meet. Living far from Kenya can be joyful, but it can also be heavy when faced alone. That's why we came together as brothers and sisters: to celebrate who we are, to support each other, and to remind ourselves that omundu khu mundu — is more than a saying — it's our way of life.
             </p>
             <p>
-              We welcome all members of the Luhya community living in NSW to join us, connect with their heritage, and experience the power of belonging. Together, we celebrate who we are, where we come from, and the bonds that unite us—both in Kenya and here in Australia.
+              Here, we laugh together, dance to Isukuti beats, share plates of ugali and ingokho, and hold each other up in times of need. What started as small gatherings has grown into a community with welfare support, cultural events, and friendships that feel like home.💛
+            </p>
+            <p>
+              Joining Mulembe is not just about membership — it's about belonging. Whether it's celebrating our traditions, uplifting one another, or raising the next generation with pride in who we are — this is your home away from home.
             </p>
           </div>
         </div>
@@ -82,42 +85,42 @@ const About = () => {
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h4 className="font-semibold">Unity</h4>
-              <p className="text-sm text-muted-foreground">Stronger together</p>
+              <p className="text-sm text-muted-foreground">Omundu khu mundu</p>
             </div>
             <div className="space-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-luhya-green to-luhya-red rounded-full flex items-center justify-center mx-auto">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h4 className="font-semibold">Strength</h4>
-              <p className="text-sm text-muted-foreground">Resilient community</p>
-            </div>
-            <div className="space-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-luhya-red to-luhya-navy rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-gradient-to-br from-luhya-red to-luhya-gold rounded-full flex items-center justify-center mx-auto">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h4 className="font-semibold">Respect</h4>
-              <p className="text-sm text-muted-foreground">Honor for all</p>
+              <h4 className="font-semibold">Compassion</h4>
+              <p className="text-sm text-muted-foreground">Care & support</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-16 h-16 bg-gradient-to-br from-luhya-green to-luhya-navy rounded-full flex items-center justify-center mx-auto">
+                <TreePine className="w-8 h-8 text-white" />
+              </div>
+              <h4 className="font-semibold">Culture</h4>
+              <p className="text-sm text-muted-foreground">Heritage & identity</p>
             </div>
             <div className="space-y-2">
               <div className="w-16 h-16 bg-gradient-to-br from-luhya-navy to-luhya-cream rounded-full flex items-center justify-center mx-auto">
                 <Shield className="w-8 h-8 text-white" />
               </div>
-              <h4 className="font-semibold">Responsibility</h4>
-              <p className="text-sm text-muted-foreground">Accountable actions</p>
+              <h4 className="font-semibold">Integrity</h4>
+              <p className="text-sm text-muted-foreground">Trust & accountability</p>
             </div>
             <div className="space-y-2">
               <div className="w-16 h-16 bg-gradient-to-br from-luhya-cream to-luhya-gold rounded-full flex items-center justify-center mx-auto">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h4 className="font-semibold">Transparency</h4>
-              <p className="text-sm text-muted-foreground">Open communication</p>
+              <h4 className="font-semibold">Growth</h4>
+              <p className="text-sm text-muted-foreground">Empower & uplift</p>
             </div>
             <div className="space-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-gradient-to-br from-luhya-gold to-luhya-red rounded-full flex items-center justify-center mx-auto">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h4 className="font-semibold">Compassion</h4>
-              <p className="text-sm text-muted-foreground">Care for others</p>
+              <h4 className="font-semibold">Togetherness</h4>
+              <p className="text-sm text-muted-foreground">Joy & celebration</p>
             </div>
           </div>
         </div>

@@ -3,6 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Heart, Calendar, Briefcase, Users2, ArrowRight } from "lucide-react";
 
 const Membership = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const membershipBenefits = [
     {
       icon: Heart,
@@ -80,7 +90,7 @@ const Membership = () => {
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Become a member of the Mulembe Community NSW and connect with your heritage while building lasting relationships in Australia.
           </p>
-          <Button variant="community" size="lg" className="group">
+          <Button onClick={() => scrollToSection('join-form')} variant="community" size="lg" className="group">
             Become a Member
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>

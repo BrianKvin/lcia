@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Camera, Heart, Users, MapPin } from "lucide-react";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import img1 from "@/assets/image (1).jpg";
 import img2 from "@/assets/image (2).jpg";
 import img3 from "@/assets/image (3).jpg";
@@ -67,11 +68,21 @@ const Gallery = () => {
     <section id="gallery" className="py-20 bg-white scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Community{" "}
-            <span className="bg-gradient-to-r from-luhya-gold to-luhya-green bg-clip-text text-transparent">
-              Gallery
-            </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 flex-shrink-0">
+              <DotLottieReact
+                src="/Photos.json"
+                loop
+                autoplay
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2">
+              <span>Community,</span>
+              <span className="bg-gradient-to-r from-luhya-gold to-luhya-green bg-clip-text text-transparent">
+                Gallery
+              </span>
+            </div>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Moments of joy, unity, and cultural celebration captured throughout our journey as the Mulembe Community in NSW.

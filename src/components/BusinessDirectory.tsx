@@ -87,17 +87,7 @@ const BusinessDirectory = () => {
             We rise by lifting each other — find services you can trust from our community members.
           </p>
           
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="community" size="lg" className="group">
-              Browse Businesses
-              <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            <Button variant="communityOutline" size="lg" className="group">
-              List Your Business
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </div>
+          {/* CTA Buttons removed per request */}
         </div>
 
 
@@ -181,24 +171,7 @@ const BusinessDirectory = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center bg-gradient-to-r from-luhya-navy/10 to-luhya-gold/10 p-8 rounded-2xl border border-luhya-navy/20">
-          <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Join Our Business Network</h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Are you a Luhya business owner in NSW? List your business in our directory and connect with community members who want to support local businesses.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="community" size="lg">
-              Add Your Business
-            </Button>
-            <Button variant="outline" size="lg">
-              View All Businesses
-            </Button>
-          </div>
-          <div className="mt-6 text-sm text-muted-foreground">
-            <p>Contact us: <a href="mailto:mulembecommunitysydneyau@gmail.com" className="underline hover:no-underline">mulembecommunitysydneyau@gmail.com</a></p>
-          </div>
-        </div>
+        {/* Bottom Call to Action removed per request */}
       </div>
     </section>
   );

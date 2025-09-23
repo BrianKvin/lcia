@@ -70,7 +70,7 @@ const Community = () => {
       } else {
         throw new Error('Submission failed');
       }
-    } catch (error) {
+    } catch {
       alert('There was a problem submitting your registration. Please try again or contact us directly.');
     } finally {
       setIsSubmitting(false);
@@ -128,7 +128,7 @@ const Community = () => {
         </div>
 
         {/* Registration Form Section */}
-        <div className="bg-card rounded-2xl p-8 border border-border">
+        <div id="join-form" className="bg-card rounded-2xl p-8 border border-border">
           <div className="text-center mb-12">
             <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
             <p className="text-muted-foreground max-w-xl mx-auto">

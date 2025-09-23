@@ -70,7 +70,7 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button variant="community" size="sm" className="text-sm px-4 py-2">Join MCNSW</Button>
+            <Button onClick={() => scrollToSection('join-form')} variant="community" size="sm" className="text-sm px-4 py-2">Join MCNSW</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -120,7 +120,7 @@ const Header = () => {
                 <span>Welfare</span>
               </button>
               <div className="pt-2 border-t border-border">
-                <Button variant="community" size="sm" className="w-full">Join MCNSW</Button>
+                <Button onClick={() => { scrollToSection('join-form'); setIsMenuOpen(false); }} variant="community" size="sm" className="w-full">Join MCNSW</Button>
               </div>
             </nav>
           </div>
