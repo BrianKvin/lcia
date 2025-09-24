@@ -47,10 +47,10 @@ const About = () => {
           </h2>
           <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-6">
             <p>
-              The Mulembe Community NSW was created to be a home away from home — a place where culture, support, and family meet. Living far from Kenya can be joyful, but it can also be heavy when faced alone. That's why we came together as brothers and sisters: to celebrate who we are, to support each other, and to remind ourselves that omundu khu mundu — is more than a saying — it's our way of life.
+              The Mulembe Community NSW was created to be a home away from home — a place where culture, support, and family meet. Living far from Kenya can be joyful, but it can also be heavy when faced alone. That's why we came together as brothers and sisters: to celebrate who we are, to support each other, and to remind ourselves that <em>omundu khu mundu</em> — is more than a saying — <em>it's our way of life.</em>
             </p>
             <p>
-              Here, we laugh together, dance to Isukuti beats, share plates of ugali and ingokho, and hold each other up in times of need. What started as small gatherings has grown into a community with welfare support, cultural events, and friendships that feel like home.💛
+              Here, we laugh together, dance to Isukuti beats, share plates of ugali and <em>ingokho</em>, and hold each other up in times of need. What started as small gatherings has grown into a community with welfare support, cultural events, and friendships that feel like home.💛
             </p>
             <p>
               Joining Mulembe is not just about membership — it's about belonging. Whether it's celebrating our traditions, uplifting one another, or raising the next generation with pride in who we are — this is your home away from home.

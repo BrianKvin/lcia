@@ -7,6 +7,9 @@ import chairImg from "@/assets/IMG_4201.JPG";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import publicOfficerImg from "@/assets/WhatsApp Image 2025-09-10 at 6.21.52 PM.jpeg";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import secretaryImg from "@/assets/IMG_1112.JPG";
 
 const Leadership = () => {
   const leadershipTeam = [
@@ -77,12 +80,18 @@ const Leadership = () => {
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-28 h-28 rounded-full object-cover"
                         />
-                      ) : leader.name === "Natalia Andati" ? (
+						) : leader.name === "Natalia Andati" ? (
                         <img
                           src={publicOfficerImg}
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-28 h-28 rounded-full object-cover"
                         />
+						) : leader.name === "Melanie Odundo" ? (
+							<img
+								src={secretaryImg}
+								alt={`${leader.name} - ${leader.position}`}
+								className="w-28 h-28 rounded-full object-cover"
+							/>
                       ) : (
                         <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-inner">
                           <span className="text-2xl font-bold text-luhya-navy">

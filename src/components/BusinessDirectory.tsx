@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, ExternalLink, ArrowRight, Instagram } from "lucide-react";
+import { MapPin, Phone, Mail, ExternalLink, Instagram } from "lucide-react";
 import deesKitchenPoster from "@/assets/WhatsApp Image 2025-09-08 at 1.28.32 PM.jpeg";
 
 const BusinessDirectory = () => {
