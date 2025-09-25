@@ -55,9 +55,9 @@ const Hero = () => {
                 Become a Member
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button onClick={() => scrollToSection('about')} variant="communityOutline" size="lg" className="group text-sm sm:text-base">
+              <Button onClick={() => scrollToSection('welfare-form')} variant="communityOutline" size="lg" className="group text-sm sm:text-base">
                 <Heart className="w-4 h-4" />
-                Learn More
+                Sign up For Welfare
               </Button>
             </div>
           </div>

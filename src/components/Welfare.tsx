@@ -404,7 +404,7 @@ const Welfare = () => {
         </div>
 
         {/* Comprehensive Membership Application Form */}
-        <div className="mt-16 bg-white p-8 rounded-2xl border border-luhya-gold/20 shadow-[var(--shadow-clean)]">
+        <div id="welfare-form" className="mt-16 bg-white p-8 rounded-2xl border border-luhya-gold/20 shadow-[var(--shadow-clean)]">
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Mulembe Community NSW<br />Welfare Membership Form</h3>
               <p className="text-muted-foreground max-w-2xl mx-auto">
