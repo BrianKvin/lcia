@@ -57,7 +57,7 @@ const Hero = () => {
               </Button>
               <Button onClick={() => scrollToSection('welfare-form')} variant="communityOutline" size="lg" className="group text-sm sm:text-base">
                 <Heart className="w-4 h-4" />
-                Sign up For Welfare
+                Join Welfare
               </Button>
             </div>
           </div>
