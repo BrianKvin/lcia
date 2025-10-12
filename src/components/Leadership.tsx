@@ -1,9 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Shield, Heart, DollarSign, FileText } from "lucide-react";
-// Explicitly import as a URL to satisfy TS image typing
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import chairImg from "@/assets/IMG_4201.JPG";
+// Note: Chairperson photo replaced with public image at /IMG_7287.JPG (served from public/)
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import publicOfficerImg from "@/assets/WhatsApp Image 2025-09-10 at 6.21.52 PM.jpeg";
@@ -71,27 +68,27 @@ const Leadership = () => {
               <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-gold/20">
                 <CardContent className="p-6 text-center">
                   {/* Profile Avatar */}
-                  <div className="w-32 h-32 mx-auto mb-4">
+                    <div className="w-32 h-32 mx-auto mb-4">
                     {/* Background circle with gradient */}
                     <div className="w-32 h-32 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
                       {leader.name === "Elizabeth Khisa" ? (
                         <img
-                          src={chairImg}
+                          src="/IMG_7287.JPG"
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-28 h-28 rounded-full object-cover"
                         />
-						) : leader.name === "Natalia Andati" ? (
+                      ) : leader.name === "Natalia Andati" ? (
                         <img
                           src={publicOfficerImg}
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-28 h-28 rounded-full object-cover"
                         />
-						) : leader.name === "Melanie Odundo" ? (
-							<img
-								src={secretaryImg}
-								alt={`${leader.name} - ${leader.position}`}
-								className="w-28 h-28 rounded-full object-cover"
-							/>
+                      ) : leader.name === "Melanie Odundo" ? (
+                        <img
+                          src={secretaryImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-28 h-28 rounded-full object-cover"
+                        />
                       ) : (
                         <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-inner">
                           <span className="text-2xl font-bold text-luhya-navy">
