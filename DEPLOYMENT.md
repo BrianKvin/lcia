@@ -34,7 +34,14 @@ The website is fully responsive across all devices:
 - **Full Navigation**: All menu items visible
 - **Lottie Animations**: Large sizing (24x24px) with optimal spacing
 
-## 🛠️ Deployment Options
+## � Environment Configuration
+
+Before deployment, ensure your `.env.production` file is set up with:
+```
+VITE_FORM_ENDPOINT=/form-submit.php
+```
+
+## �🛠️ Deployment Options
 
 ### Option 1: cPanel Hosting (Recommended)
 
@@ -77,7 +84,24 @@ The website is fully responsive across all devices:
 2. **Add form handling**:
    - Use Netlify Forms or add a serverless function for form processing
 
-## 📧 Form Submission Setup
+## � Security Considerations
+
+- **HTTPS Required**: Deploy with SSL certificate
+- **Form Security**:
+  - Rate limiting implemented
+  - Input validation on both client and server
+  - File upload restrictions
+  - CSRF protection
+- **Email Security**:
+  - Secure SMTP configuration
+  - Attachment scanning
+  - Data encryption in transit
+- **Server Security**:
+  - Proper file permissions
+  - Secure headers
+  - CORS policy configured
+
+## �📧 Form Submission Setup
 
 The welfare form includes:
 - **Digital signature pad** with canvas API
