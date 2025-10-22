@@ -73,7 +73,7 @@ const Leadership = () => {
                     <div className="w-32 h-32 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
                       {leader.name === "Elizabeth Khisa" ? (
                         <img
-                          src="/IMG_7287.JPG"
+                          src="/IMG_7650.JPEG"
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-28 h-28 rounded-full object-cover"
                         />
