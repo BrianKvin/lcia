@@ -16,19 +16,11 @@ const Events = () => {
 
   const upcomingEvents = [
     {
-      title: "Chris’s Birthday Party 🎉",
-      date: "September 14, 2025",
-      time: "3:00 PM till late",
-      location: "Parramatta",
-      attendees: 50,
-      description: "Come and celebrate with us as we join our brother Chris for his birthday party! 🎂🎶 Community & friends invited."
-    },
-    {
-      title: "End of Year Mulembe Community Gathering 🎉",
-      date: "December 14, 2025",
+      title: "End of Year Mulembe Community Meetup 🎉",
+      date: "December 13, 2025",
       time: "2:00 PM till late",
       location: "Henry Lawson Dr, Lansdowne NSW",
-      attendees: 120,
+      attendees: "60+",
       description: "Join us for our final community gathering of the year — discussions, updates, food, and fellowship as we celebrate our achievements and unity. 🍲 Please bring a Kenyan dish to share."
     }
   ];
