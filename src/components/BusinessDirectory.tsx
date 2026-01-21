@@ -74,16 +74,16 @@ const BusinessDirectory = () => {
     <section id="business" className="py-20 bg-gradient-to-b from-white to-luhya-gold/10 scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
             <span className="bg-gradient-to-r from-luhya-navy to-luhya-gold bg-clip-text text-transparent">
               Business Directory
             </span>
           </h2>
-          <h3 className="text-xl md:text-2xl font-semibold text-luhya-navy mb-4">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-luhya-navy mb-3 sm:mb-4">
             Support Luhya-owned businesses in NSW
           </h3>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-8 px-4">
             We rise by lifting each other — find services you can trust from our community members.
           </p>
           
@@ -92,12 +92,12 @@ const BusinessDirectory = () => {
 
 
         {/* Featured Businesses */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold mb-8 text-center text-luhya-navy">Featured Businesses</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mb-12 sm:mb-16">
+          <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-center text-luhya-navy">Featured Businesses</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {sampleBusinesses.map((business, index) => (
               <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-green/20">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="mb-4">
                     <h4 className="font-semibold text-xl mb-2 text-luhya-navy group-hover:text-luhya-gold transition-colors">
                       {business.name}

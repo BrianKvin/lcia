@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MapPin, Users, ArrowRight, Heart, MessageCircle } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, ArrowRight, Heart, MessageCircle, CheckCircle2 } from "lucide-react";
 import StoriesModal from "@/components/StoriesModal";
 import { useState } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -14,7 +14,23 @@ const Events = () => {
     setIsStoriesModalOpen(true);
   };
 
-  const upcomingEvents = [
+  const upcomingEvents: Array<{
+    title: string;
+    date: string;
+    time: string;
+    location: string;
+    attendees: string;
+    description: string;
+  }> = [];
+
+  const pastEvents: Array<{
+    title: string;
+    date: string;
+    time: string;
+    location: string;
+    attendees: string;
+    description: string;
+  }> = [
     {
       title: "End of Year Mulembe Community Meetup 🎉",
       date: "December 13, 2025",
@@ -54,50 +70,95 @@ const Events = () => {
         </div>
 
         {/* Upcoming Events */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold mb-8 flex items-center">
-            <Calendar className="w-6 h-6 mr-2 text-community-warm" />
-            Upcoming Events
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {upcomingEvents.map((event, index) => (
-              <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="text-lg group-hover:text-community-warm transition-colors">
-                    {event.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground">{event.description}</p>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center text-sm">
-                      <Calendar className="w-4 h-4 mr-2 text-community-warm" />
-                      {event.date}
+        {upcomingEvents.length > 0 && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold mb-8 flex items-center">
+              <Calendar className="w-6 h-6 mr-2 text-community-warm" />
+              Upcoming Events
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {upcomingEvents.map((event, index) => (
+                <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300">
+                  <CardHeader>
+                    <CardTitle className="text-lg group-hover:text-community-warm transition-colors">
+                      {event.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-muted-foreground">{event.description}</p>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm">
+                        <Calendar className="w-4 h-4 mr-2 text-community-warm" />
+                        {event.date}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Clock className="w-4 h-4 mr-2 text-community-sky" />
+                        {event.time}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <MapPin className="w-4 h-4 mr-2 text-community-earth" />
+                        {event.location}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Users className="w-4 h-4 mr-2 text-community-warm" />
+                        {event.attendees} attending
+                      </div>
                     </div>
-                    <div className="flex items-center text-sm">
-                      <Clock className="w-4 h-4 mr-2 text-community-sky" />
-                      {event.time}
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <MapPin className="w-4 h-4 mr-2 text-community-earth" />
-                      {event.location}
-                    </div>
-                    <div className="flex items-center text-sm">
-                      <Users className="w-4 h-4 mr-2 text-community-warm" />
-                      {event.attendees} attending
-                    </div>
-                  </div>
 
-                  <Button variant="communityOutline" size="sm" className="w-full group">
-                    RSVP Now
-                    <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                    <Button variant="communityOutline" size="sm" className="w-full group">
+                      RSVP Now
+                      <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Past Events */}
+        {pastEvents.length > 0 && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold mb-8 flex items-center">
+              <CheckCircle2 className="w-6 h-6 mr-2 text-muted-foreground" />
+              Past Events
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {pastEvents.map((event, index) => (
+                <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 opacity-90">
+                  <CardHeader>
+                    <CardTitle className="text-lg text-muted-foreground group-hover:text-foreground transition-colors">
+                      {event.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-muted-foreground">{event.description}</p>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm">
+                        <Calendar className="w-4 h-4 mr-2 text-muted-foreground" />
+                        {event.date}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Clock className="w-4 h-4 mr-2 text-muted-foreground" />
+                        {event.time}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
+                        {event.location}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <Users className="w-4 h-4 mr-2 text-muted-foreground" />
+                        {event.attendees} attended
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Culture & Heritage */}
         <div>

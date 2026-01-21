@@ -45,19 +45,19 @@ const Leadership = () => {
   return (
     <section id="leadership" className="py-20 bg-gradient-to-b from-white to-luhya-cream/20 scroll-mt-24">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
             Our{" "}
             <span className="bg-gradient-to-r from-luhya-navy to-luhya-gold bg-clip-text text-transparent">
               Leadership Team
             </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
             Meet the dedicated leaders who guide our community with passion, integrity, and commitment to preserving our Luhya heritage.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
           {leadershipTeam.map((leader, index) => {
             // Generate initials from name
             const getInitials = (name: string) => {
@@ -66,32 +66,32 @@ const Leadership = () => {
 
             return (
               <Card key={index} className="group hover:shadow-[var(--shadow-clean)] transition-all duration-300 border-luhya-gold/20">
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-4 sm:p-6 text-center">
                   {/* Profile Avatar */}
-                    <div className="w-32 h-32 mx-auto mb-4">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-3 sm:mb-4">
                     {/* Background circle with gradient */}
-                    <div className="w-32 h-32 bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
+                    <div className="w-full h-full bg-gradient-to-br from-luhya-gold to-luhya-green rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg overflow-hidden">
                       {leader.name === "Elizabeth Khisa" ? (
                         <img
                           src="/IMG_7650.JPEG"
                           alt={`${leader.name} - ${leader.position}`}
-                          className="w-28 h-28 rounded-full object-cover"
+                          className="w-[90%] h-[90%] rounded-full object-cover"
                         />
                       ) : leader.name === "Natalia Andati" ? (
                         <img
                           src={publicOfficerImg}
                           alt={`${leader.name} - ${leader.position}`}
-                          className="w-28 h-28 rounded-full object-cover"
+                          className="w-[90%] h-[90%] rounded-full object-cover"
                         />
                       ) : leader.name === "Melanie Odundo" ? (
                         <img
                           src={secretaryImg}
                           alt={`${leader.name} - ${leader.position}`}
-                          className="w-28 h-28 rounded-full object-cover"
+                          className="w-[90%] h-[90%] rounded-full object-cover"
                         />
                       ) : (
-                        <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center shadow-inner">
-                          <span className="text-2xl font-bold text-luhya-navy">
+                        <div className="w-[90%] h-[90%] bg-white rounded-full flex items-center justify-center shadow-inner">
+                          <span className="text-lg sm:text-xl md:text-2xl font-bold text-luhya-navy">
                             {getInitials(leader.name)}
                           </span>
                         </div>
@@ -99,7 +99,7 @@ const Leadership = () => {
                     </div>
                   </div>
                   
-                  <h3 className="font-semibold text-lg mb-2 text-luhya-navy">
+                  <h3 className="font-semibold text-base sm:text-lg mb-1 sm:mb-2 text-luhya-navy">
                     {leader.name}
                   </h3>
                   

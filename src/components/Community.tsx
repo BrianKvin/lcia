@@ -128,17 +128,17 @@ const Community = () => {
         </div>
 
         {/* Registration Form Section */}
-        <div id="join-form" className="bg-card rounded-2xl p-8 border border-border">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold mb-4">Ready to Join Our Community?</h3>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+        <div id="join-form" className="bg-card rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-border">
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Ready to Join Our Community?</h3>
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-4">
               We'd love to welcome you to the Mulembe Community NSW. Fill out the form below 
               and we'll contact you soon to help you become part of our family.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
-            <div className="grid md:grid-cols-1 gap-6 mb-8">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-6 sm:mb-8">
               <div className="space-y-2">
                 <label htmlFor="fullName" className="text-sm font-medium text-luhya-navy">
                   Full Name *
@@ -193,7 +193,7 @@ const Community = () => {
                 type="submit" 
                 variant="hero" 
                 size="lg" 
-                className="px-12"
+                className="w-full sm:w-auto px-8 sm:px-12"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Submitting...' : 'Join Our Community'}
@@ -201,7 +201,7 @@ const Community = () => {
             </div>
           </form>
 
-          <div className="text-center text-sm text-muted-foreground mt-8">
+          <div className="text-center text-xs sm:text-sm text-muted-foreground mt-6 sm:mt-8 px-4">
             <p>{ADDRESS_LINE_1}</p>
             <p>{ADDRESS_LINE_2}</p>
             <p>

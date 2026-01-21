@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Users } from "lucide-react";
-import heroImg from "@/assets/image (4).jpg";
+import heroImg from "@/assets/photos/IMG_6463-Enhanced-NR.jpeg";
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {

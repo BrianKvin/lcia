@@ -404,22 +404,22 @@ const Welfare = () => {
         </div>
 
         {/* Comprehensive Membership Application Form */}
-        <div id="welfare-form" className="mt-16 bg-white p-8 rounded-2xl border border-luhya-gold/20 shadow-[var(--shadow-clean)]">
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold mb-4 text-luhya-navy">Mulembe Community NSW<br />Welfare Membership Form</h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
+        <div id="welfare-form" className="mt-12 sm:mt-16 bg-white p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-luhya-gold/20 shadow-[var(--shadow-clean)]">
+            <div className="text-center mb-6 sm:mb-8">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-luhya-navy">Mulembe Community NSW<br />Welfare Membership Form</h3>
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-4">
                 Complete this form to join our community and access welfare benefits. All information will be kept confidential.
               </p>
             </div>
 
             <div className="max-w-6xl mx-auto">
-              <form onSubmit={handleSubmit} className="space-y-8">
+              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                 {/* Applicant Details Section */}
-                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
-                  <h4 className="text-xl font-bold text-white">Applicant Details</h4>
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-3 sm:p-4 rounded-t-lg">
+                  <h4 className="text-lg sm:text-xl font-bold text-white">Applicant Details</h4>
                 </div>
-                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6 space-y-6">
-                  <div className="grid md:grid-cols-4 gap-4">
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-4 sm:p-6 space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                       <div className="space-y-2">
                       <Label className="text-luhya-navy font-medium">First/Given Name *</Label>
                         <Input
@@ -462,50 +462,50 @@ const Welfare = () => {
                       </div>
                     </div>
 
-                  <div className="grid md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                     <div className="space-y-2">
-                      <Label className="text-luhya-navy font-medium">Street Address *</Label>
+                      <Label className="text-luhya-navy font-medium text-sm sm:text-base">Street Address *</Label>
                       <Input
                         name="street"
                         value={formData.street}
                         onChange={handleInputChange}
                         required
-                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                        className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
                       />
                     </div>
                       <div className="space-y-2">
-                      <Label className="text-luhya-navy font-medium">Suburb/Town *</Label>
+                      <Label className="text-luhya-navy font-medium text-sm sm:text-base">Suburb/Town *</Label>
                       <Input
                         name="suburb"
                         value={formData.suburb}
                         onChange={handleInputChange}
                         required
-                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                        className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
                       />
                       </div>
                       <div className="space-y-2">
-                      <Label className="text-luhya-navy font-medium">State/Territory *</Label>
+                      <Label className="text-luhya-navy font-medium text-sm sm:text-base">State/Territory *</Label>
                       <Input
                         name="state"
                         value={formData.state}
                         onChange={handleInputChange}
                         required
-                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                        className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
                       />
                       </div>
                       <div className="space-y-2">
-                      <Label className="text-luhya-navy font-medium">Postcode *</Label>
+                      <Label className="text-luhya-navy font-medium text-sm sm:text-base">Postcode *</Label>
                       <Input
                         name="postcode"
                         value={formData.postcode}
                         onChange={handleInputChange}
                         required
-                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                        className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
                       />
                     </div>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div className="space-y-2">
                       <Label className="text-luhya-navy font-medium">Country *</Label>
                       <Input
@@ -531,20 +531,20 @@ const Welfare = () => {
                     </div>
 
                 {/* Welfare Beneficiaries Section */}
-                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
-                  <h4 className="text-xl font-bold text-white">Welfare Beneficiaries (5 Family Members)</h4>
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-3 sm:p-4 rounded-t-lg">
+                  <h4 className="text-lg sm:text-xl font-bold text-white">Welfare Beneficiaries (5 Family Members)</h4>
                 </div>
-                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6 space-y-6">
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-4 sm:p-6 space-y-4 sm:space-y-6">
                   {formData.beneficiaries.map((beneficiary, index) => (
-                    <div key={index} className="border border-luhya-gold/20 rounded-lg p-4">
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="bg-luhya-gold text-luhya-navy px-3 py-1 rounded-full text-sm font-bold">
+                    <div key={index} className="border border-luhya-gold/20 rounded-lg p-3 sm:p-4">
+                      <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                        <span className="bg-luhya-gold text-luhya-navy px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
                           #{index + 1}
                         </span>
-                        <span className="font-semibold text-luhya-navy">Beneficiary</span>
+                        <span className="font-semibold text-sm sm:text-base text-luhya-navy">Beneficiary</span>
                       </div>
                       
-                      <div className="grid md:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                         <div className="space-y-2">
                           <Label className="text-luhya-navy font-medium">First/Given Name</Label>
                           <Input
@@ -571,20 +571,20 @@ const Welfare = () => {
                     </div>
                   </div>
 
-                      <div className="grid md:grid-cols-2 gap-4 mt-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-3 sm:mt-4">
                         <div className="space-y-2">
-                          <Label className="text-luhya-navy font-medium">Date of Birth</Label>
+                          <Label className="text-luhya-navy font-medium text-sm sm:text-base">Date of Birth</Label>
                           <Input
                             type="date"
                             value={beneficiary.dateOfBirth}
                             onChange={(e) => handleBeneficiaryChange(index, 'dateOfBirth', e.target.value)}
-                            className="border-luhya-gold/30 focus:border-luhya-gold"
+                            className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label className="text-luhya-navy font-medium">Relationship</Label>
+                          <Label className="text-luhya-navy font-medium text-sm sm:text-base">Relationship</Label>
                           <Select value={beneficiary.relationship} onValueChange={(value) => handleBeneficiaryChange(index, 'relationship', value)}>
-                            <SelectTrigger className="border-luhya-gold/30 focus:border-luhya-gold">
+                            <SelectTrigger className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base">
                               <SelectValue placeholder="Select relationship" />
                             </SelectTrigger>
                             <SelectContent>
@@ -602,17 +602,18 @@ const Welfare = () => {
                 </div>
 
                 {/* Signature Section */}
-                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
-                  <h4 className="text-xl font-bold text-white">Signature</h4>
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-3 sm:p-4 rounded-t-lg">
+                  <h4 className="text-lg sm:text-xl font-bold text-white">Signature</h4>
                 </div>
-                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6">
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-4">
-                    <p className="text-center text-gray-500 mb-4">Please sign below</p>
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-4 sm:p-6">
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-3 sm:p-4">
+                    <p className="text-center text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">Please sign below</p>
                     <canvas
                       ref={signatureRef}
                       width={800}
                       height={200}
                       className="border border-gray-300 rounded-lg w-full touch-none"
+                      style={{ minHeight: '150px', maxHeight: '200px' }}
                       onMouseDown={startDrawing}
                       onMouseMove={draw}
                       onMouseUp={stopDrawing}
@@ -621,11 +622,11 @@ const Welfare = () => {
                       onTouchMove={drawTouch}
                       onTouchEnd={stopDrawingTouch}
                     />
-                    <div className="flex gap-2 mt-4">
-                      <Button type="button" variant="outline" onClick={clearSignature}>
+                    <div className="flex flex-col sm:flex-row gap-2 mt-3 sm:mt-4">
+                      <Button type="button" variant="outline" onClick={clearSignature} className="w-full sm:w-auto text-sm">
                         Clear
                       </Button>
-                      <Button type="button" variant="outline" onClick={undoSignature}>
+                      <Button type="button" variant="outline" onClick={undoSignature} className="w-full sm:w-auto text-sm">
                         Undo
                       </Button>
                       </div>
@@ -633,10 +634,10 @@ const Welfare = () => {
                   </div>
 
                 {/* Declarations Section */}
-                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-4 rounded-t-lg">
-                  <h4 className="text-xl font-bold text-white">Declarations</h4>
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-3 sm:p-4 rounded-t-lg">
+                  <h4 className="text-lg sm:text-xl font-bold text-white">Declarations</h4>
                 </div>
-                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-6 space-y-4">
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
                   <div className="bg-luhya-gold/10 p-4 rounded-lg border-l-4 border-luhya-gold">
                     <div className="flex items-start gap-3">
                       <input
@@ -683,11 +684,11 @@ const Welfare = () => {
                   </div>
 
                   {/* Submit Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 border-t-4 border-luhya-gold">
-                  <Button type="button" variant="outline" size="lg">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-6 border-t-4 border-luhya-gold">
+                  <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto">
                     Print / Save as PDF
                   </Button>
-                    <Button type="submit" variant="community" size="lg" className="group">
+                    <Button type="submit" variant="community" size="lg" className="group w-full sm:w-auto">
                     Submit
                       <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Button>
