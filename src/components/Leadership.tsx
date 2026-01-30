@@ -1,12 +1,36 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, Shield, Heart, DollarSign, FileText } from "lucide-react";
+import { Users, Shield, Heart, DollarSign, FileText, Calendar, HeartHandshake, Share2 } from "lucide-react";
 // Note: Chairperson photo replaced with public image at /IMG_7287.JPG (served from public/)
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import publicOfficerImg from "@/assets/WhatsApp Image 2025-09-10 at 6.21.52 PM.jpeg";
+// Vice Chairperson photo
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import secretaryImg from "@/assets/IMG_1112.JPG";
+import viceChairpersonImg from "@/assets/photos/WhatsApp Image 2026-01-25 at 9.59.07 PM.jpeg";
+// Secretary General photo
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import secretaryGeneralImg from "@/assets/photos/WhatsApp Image 2026-01-25 at 9.59.25 PM.jpeg";
+// Treasurer photo
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import treasurerImg from "@/assets/photos/WhatsApp Image 2026-01-25 at 9.59.57 PM.jpeg";
+// Events Coordinator photo
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import eventsCoordinatorImg from "@/assets/photos/WhatsApp Image 2026-01-25 at 10.00.56 PM.jpeg";
+// Welfare photo
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import welfareImg from "@/assets/photos/WhatsApp Image 2026-01-25 at 10.01.18 PM.jpeg";
+// Social Media Team photos (Gift and Terence)
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import socialMediaGiftImg from "@/assets/photos/WhatsApp Image 2026-01-26 at 11.44.54 AM.jpeg";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import socialMediaTerenceImg from "@/assets/photos/WhatsApp Image 2026-01-30 at 11.50.07 AM.jpeg";
 
 const Leadership = () => {
   const leadershipTeam = [
@@ -35,6 +59,30 @@ const Leadership = () => {
       description: "Overseeing our community finances and welfare fund with transparency and accountability."
     },
     {
+      name: "Shilla Muhonja",
+      position: "Events Coordinator",
+      icon: Calendar,
+      description: "Organizing community gatherings, cultural events, and activities that bring our members together."
+    },
+    {
+      name: "Rose Wangwe",
+      position: "Welfare",
+      icon: HeartHandshake,
+      description: "Coordinating welfare support and standing with our community members in times of need."
+    },
+    {
+      name: "Gift",
+      position: "Social Media Team",
+      icon: Share2,
+      description: "Managing our community's online presence and keeping members connected through social media."
+    },
+    {
+      name: "Terence",
+      position: "Social Media Team",
+      icon: Share2,
+      description: "Managing our community's online presence and keeping members connected through social media."
+    },
+    {
       name: "Natalia Andati",
       position: "Public Officer",
       icon: Heart,
@@ -57,7 +105,7 @@ const Leadership = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {leadershipTeam.map((leader, index) => {
             // Generate initials from name
             const getInitials = (name: string) => {
@@ -83,9 +131,45 @@ const Leadership = () => {
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-[90%] h-[90%] rounded-full object-cover"
                         />
+                      ) : leader.name === "Joseph Ikatanyi" ? (
+                        <img
+                          src={viceChairpersonImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
                       ) : leader.name === "Melanie Odundo" ? (
                         <img
-                          src={secretaryImg}
+                          src={secretaryGeneralImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
+                      ) : leader.name === "Douglas Marango" ? (
+                        <img
+                          src={treasurerImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
+                      ) : leader.name === "Shilla Muhonja" ? (
+                        <img
+                          src={eventsCoordinatorImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
+                      ) : leader.name === "Rose Wangwe" ? (
+                        <img
+                          src={welfareImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
+                      ) : leader.name === "Gift" ? (
+                        <img
+                          src={socialMediaGiftImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
+                      ) : leader.name === "Terence" ? (
+                        <img
+                          src={socialMediaTerenceImg}
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-[90%] h-[90%] rounded-full object-cover"
                         />

@@ -4,9 +4,23 @@ import { Camera, Heart, Users, MapPin, Download, Calendar, X, ChevronLeft, Chevr
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useMemo, useState, useEffect } from "react";
 
-// Dynamically import all photos from the photos folder
+// Dynamically import photos from the photos folder, excluding leadership headshots
 const photoModules = import.meta.glob<{ default: string }>('@/assets/photos/*.jpeg', { eager: true });
-const photos = Object.values(photoModules).map(module => module.default);
+
+// Leadership photos live in the same folder but must not appear in the meetup gallery
+const LEADERSHIP_PHOTO_FILES = [
+  'WhatsApp Image 2026-01-25 at 9.59.07 PM.jpeg',
+  'WhatsApp Image 2026-01-25 at 9.59.25 PM.jpeg',
+  'WhatsApp Image 2026-01-25 at 9.59.57 PM.jpeg',
+  'WhatsApp Image 2026-01-25 at 10.00.56 PM.jpeg',
+  'WhatsApp Image 2026-01-25 at 10.01.18 PM.jpeg',
+  'WhatsApp Image 2026-01-26 at 11.44.54 AM.jpeg',
+  'WhatsApp Image 2026-01-30 at 11.50.07 AM.jpeg',
+];
+
+const photos = Object.entries(photoModules)
+  .filter(([path]) => !LEADERSHIP_PHOTO_FILES.some((file) => path.endsWith(file)))
+  .map(([, module]) => module.default);
 
 const Gallery = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
