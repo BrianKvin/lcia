@@ -16,6 +16,7 @@ const LEADERSHIP_PHOTO_FILES = [
   'WhatsApp Image 2026-01-25 at 10.01.18 PM.jpeg',
   'WhatsApp Image 2026-01-26 at 11.44.54 AM.jpeg',
   'WhatsApp Image 2026-01-30 at 11.50.07 AM.jpeg',
+  'WhatsApp Image 2026-01-30 at 9.57.05 PM.jpeg',
 ];
 
 const photos = Object.entries(photoModules)

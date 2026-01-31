@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, Shield, Heart, DollarSign, FileText, Calendar, HeartHandshake, Share2 } from "lucide-react";
+import { Users, Shield, Heart, DollarSign, FileText, Calendar, HeartHandshake, Share2, Lightbulb } from "lucide-react";
 // Note: Chairperson photo replaced with public image at /IMG_7287.JPG (served from public/)
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -31,6 +31,10 @@ import socialMediaGiftImg from "@/assets/photos/WhatsApp Image 2026-01-26 at 11.
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import socialMediaTerenceImg from "@/assets/photos/WhatsApp Image 2026-01-30 at 11.50.07 AM.jpeg";
+// Advisory Team photo (James Wasikoyo)
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import advisoryJamesImg from "@/assets/photos/WhatsApp Image 2026-01-30 at 9.57.05 PM.jpeg";
 
 const Leadership = () => {
   const leadershipTeam = [
@@ -87,6 +91,24 @@ const Leadership = () => {
       position: "Public Officer",
       icon: Heart,
       description: "Representing our community publicly and fostering connections with the broader Australian society."
+    },
+    {
+      name: "James Wasikoyo",
+      position: "Advisory Team",
+      icon: Lightbulb,
+      description: "Providing strategic guidance and counsel to support our community's vision and growth."
+    },
+    {
+      name: "Cynthia Ojiambo",
+      position: "Advisory Team",
+      icon: Lightbulb,
+      description: "Providing strategic guidance and counsel to support our community's vision and growth."
+    },
+    {
+      name: "Dennis Andre",
+      position: "Advisory Team",
+      icon: Lightbulb,
+      description: "Providing strategic guidance and counsel to support our community's vision and growth."
     }
   ];
 
@@ -170,6 +192,12 @@ const Leadership = () => {
                       ) : leader.name === "Terence" ? (
                         <img
                           src={socialMediaTerenceImg}
+                          alt={`${leader.name} - ${leader.position}`}
+                          className="w-[90%] h-[90%] rounded-full object-cover"
+                        />
+                      ) : leader.name === "James Wasikoyo" ? (
+                        <img
+                          src={advisoryJamesImg}
                           alt={`${leader.name} - ${leader.position}`}
                           className="w-[90%] h-[90%] rounded-full object-cover"
                         />
