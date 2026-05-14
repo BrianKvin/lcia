@@ -105,7 +105,7 @@ const Leadership = () => {
       description: "Providing strategic guidance and counsel to support our community's vision and growth."
     },
     {
-      name: "Dennis Andre",
+      name: "Dennis Machabe",
       position: "Advisory Team",
       icon: Lightbulb,
       description: "Providing strategic guidance and counsel to support our community's vision and growth."
