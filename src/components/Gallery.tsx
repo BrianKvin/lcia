@@ -286,28 +286,23 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
+        {/* Download gallery */}
         <div className="text-center bg-gradient-to-r from-luhya-gold/10 to-luhya-green/10 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-luhya-gold/20">
-          <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Share Your Moments</h3>
+          <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Download Our Gallery</h3>
           <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto px-4">
-            Have photos from our community events? We'd love to feature them in our gallery. Help us preserve our beautiful memories together.
+            Browse and download photos from our community events to keep and share our beautiful memories together.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-            <Button variant="community" size="lg" className="w-full sm:w-auto">
-              Submit Photos
+          <a
+            href="https://drive.google.com/drive/folders/15F0tofKt-YAMn_wJrlas2QwTPLuxPdcy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-full sm:w-auto px-4"
+          >
+            <Button variant="outline" size="lg" className="group w-full sm:w-auto">
+              <Download className="w-4 h-4 mr-2" />
+              Download Gallery
             </Button>
-            <a 
-              href="https://drive.google.com/drive/folders/15F0tofKt-YAMn_wJrlas2QwTPLuxPdcy" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto"
-            >
-              <Button variant="outline" size="lg" className="group w-full sm:w-auto">
-                <Download className="w-4 h-4 mr-2" />
-                Download Gallery
-              </Button>
-            </a>
-          </div>
+          </a>
         </div>
       </div>
     </section>
