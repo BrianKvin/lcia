@@ -9,6 +9,8 @@ export default defineConfig({
     react(),
     ViteImageOptimizer({
       logStats: true,
+      // Gallery meetup photos are very large (multi-MB each); skip them to avoid Sharp/Vips OOM on Windows builds.
+      exclude: /IMG_.*-Enhanced-NR/i,
       jpeg: { quality: 75, mozjpeg: true },
       jpg: { quality: 75, mozjpeg: true },
       png: { quality: 80 },

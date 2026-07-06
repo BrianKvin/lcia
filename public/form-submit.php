@@ -27,6 +27,7 @@ if (!$data) {
 
 $applicant = $data['applicant'] ?? [];
 $beneficiaries = $data['beneficiaries'] ?? [];
+$nextOfKin = $data['nextOfKin'] ?? [];
 $signature = $data['signature'] ?? '';
 $constitutionConsent = $data['constitutionConsent'] ?? false;
 $privacyConsent = $data['privacyConsent'] ?? false;
@@ -91,17 +92,31 @@ if ($formType === 'community_registration') {
 
 // Beneficiaries (only for welfare form)
 if ($formType !== 'community_registration') {
+  $htmlBody .= '<h3>Next of Kin</h3>';
+  if (is_array($nextOfKin) && (
+    !empty($nextOfKin['firstName']) || !empty($nextOfKin['surname']) || !empty($nextOfKin['phone'])
+  )) {
+    $htmlBody .= '<table border="1" cellpadding="6" cellspacing="0">';
+    $htmlBody .= '<tr><td><strong>First Name</strong></td><td>' . e($nextOfKin['firstName'] ?? '') . '</td></tr>';
+    $htmlBody .= '<tr><td><strong>Middle Name</strong></td><td>' . e($nextOfKin['middleName'] ?? '') . '</td></tr>';
+    $htmlBody .= '<tr><td><strong>Surname</strong></td><td>' . e($nextOfKin['surname'] ?? '') . '</td></tr>';
+    $htmlBody .= '<tr><td><strong>Phone</strong></td><td>' . e($nextOfKin['phone'] ?? '') . '</td></tr>';
+    $htmlBody .= '</table>';
+  } else {
+    $htmlBody .= '<p>No Next of Kin provided.</p>';
+  }
+
   $htmlBody .= '<h3>Beneficiaries</h3>';
   if (is_array($beneficiaries) && count($beneficiaries) > 0) {
     $htmlBody .= '<table border="1" cellpadding="6" cellspacing="0">';
-    $htmlBody .= '<tr><th>#</th><th>First</th><th>Middle</th><th>Surname</th><th>DOB</th><th>Relationship</th></tr>';
+    $htmlBody .= '<tr><th>#</th><th>First</th><th>Middle</th><th>Surname</th><th>Phone</th><th>Relationship</th></tr>';
     foreach ($beneficiaries as $i => $b) {
       $htmlBody .= '<tr>'
         . '<td>' . e($i + 1) . '</td>'
         . '<td>' . e($b['firstName'] ?? '') . '</td>'
         . '<td>' . e($b['middleName'] ?? '') . '</td>'
         . '<td>' . e($b['surname'] ?? '') . '</td>'
-        . '<td>' . e($b['dateOfBirth'] ?? '') . '</td>'
+        . '<td>' . e($b['phone'] ?? '') . '</td>'
         . '<td>' . e($b['relationship'] ?? '') . '</td>'
         . '</tr>';
     }
@@ -136,15 +151,24 @@ foreach ($fields as $k => $v) {
   fputcsv($csv, [$k, $v]);
 }
 fputcsv($csv, []);
+fputcsv($csv, ['Next of Kin']);
+fputcsv($csv, ['First Name', 'Middle Name', 'Surname', 'Phone']);
+fputcsv($csv, [
+  $nextOfKin['firstName'] ?? '',
+  $nextOfKin['middleName'] ?? '',
+  $nextOfKin['surname'] ?? '',
+  $nextOfKin['phone'] ?? '',
+]);
+fputcsv($csv, []);
 fputcsv($csv, ['Beneficiaries']);
-fputcsv($csv, ['#','First','Middle','Surname','DOB','Relationship']);
+fputcsv($csv, ['#','First','Middle','Surname','Phone','Relationship']);
 foreach ($beneficiaries as $i => $b) {
   fputcsv($csv, [
     $i + 1,
     $b['firstName'] ?? '',
     $b['middleName'] ?? '',
     $b['surname'] ?? '',
-    $b['dateOfBirth'] ?? '',
+    $b['phone'] ?? '',
     $b['relationship'] ?? '',
   ]);
 }

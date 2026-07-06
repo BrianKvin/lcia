@@ -9,10 +9,23 @@ import Membership from "@/components/Membership";
 import BusinessDirectory from "@/components/BusinessDirectory";
 import Welfare from "@/components/Welfare";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
 
 const Index = () => {
+  useEffect(() => {
+    const sectionId = sessionStorage.getItem("scrollTo");
+    if (!sectionId) return;
+
+    sessionStorage.removeItem("scrollTo");
+    const timer = window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 150);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-x-hidden">
       <Header />
       <Hero />
       <About />

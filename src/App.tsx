@@ -5,6 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import SubTribesPage from "./pages/culture/SubTribesPage";
+import TasteOfHomePage from "./pages/culture/TasteOfHomePage";
+import StoriesPage from "./pages/culture/StoriesPage";
+import LanguagePage from "./pages/culture/LanguagePage";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +20,10 @@ const App = () => (
       <HashRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/culture/sub-tribes" element={<SubTribesPage />} />
+          <Route path="/culture/taste-of-home" element={<TasteOfHomePage />} />
+          <Route path="/culture/stories" element={<StoriesPage />} />
+          <Route path="/culture/language" element={<LanguagePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

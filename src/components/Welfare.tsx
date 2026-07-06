@@ -7,6 +7,30 @@ import { Heart, Users, DollarSign, Shield, Send } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import type React from "react";
 
+const BENEFICIARY_RELATIONSHIPS = [
+  { value: "kin", label: "Kin" },
+  { value: "mother", label: "Mother" },
+  { value: "father", label: "Father" },
+  { value: "child", label: "Child" },
+  { value: "sibling", label: "Sibling" },
+  { value: "partner", label: "Partner" },
+] as const;
+
+const createEmptyBeneficiary = () => ({
+  firstName: "",
+  middleName: "",
+  surname: "",
+  phone: "",
+  relationship: "",
+});
+
+const createEmptyNextOfKin = () => ({
+  firstName: "",
+  middleName: "",
+  surname: "",
+  phone: "",
+});
+
 const Welfare = () => {
   const FORM_ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || '/form-submit.php';
   const [formData, setFormData] = useState({
@@ -21,14 +45,9 @@ const Welfare = () => {
     postcode: '',
     country: 'Australia',
     phone: '',
+    nextOfKin: createEmptyNextOfKin(),
     // Beneficiaries (5 family members)
-    beneficiaries: Array(5).fill(null).map(() => ({
-      firstName: '',
-      middleName: '',
-      surname: '',
-      dateOfBirth: '',
-      relationship: ''
-    })),
+    beneficiaries: Array(5).fill(null).map(() => createEmptyBeneficiary()),
     // Signature and declarations
     signature: '',
     constitutionConsent: false,
@@ -82,6 +101,13 @@ const Welfare = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleNextOfKinChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      nextOfKin: { ...prev.nextOfKin, [field]: value },
+    }));
   };
 
   const handleBeneficiaryChange = (index: number, field: string, value: string) => {
@@ -250,6 +276,7 @@ const Welfare = () => {
       beneficiaries: formData.beneficiaries.filter(ben => 
         ben.firstName && ben.surname
       ),
+      nextOfKin: formData.nextOfKin,
       signature: formData.signature,
       constitutionConsent: formData.constitutionConsent,
       privacyConsent: formData.privacyConsent,
@@ -267,7 +294,8 @@ const Welfare = () => {
       // Reset form
       setFormData({
         firstName: '', middleName: '', surname: '', email: '', street: '', suburb: '', state: '', postcode: '', country: 'Australia', phone: '',
-        beneficiaries: Array(5).fill(null).map(() => ({ firstName: '', middleName: '', surname: '', dateOfBirth: '', relationship: '' })),
+        nextOfKin: createEmptyNextOfKin(),
+        beneficiaries: Array(5).fill(null).map(() => createEmptyBeneficiary()),
         signature: '', constitutionConsent: false, privacyConsent: false,
       });
     } catch (err) {
@@ -530,6 +558,74 @@ const Welfare = () => {
                   </div>
                     </div>
 
+                {/* Beneficiary Eligibility */}
+                <div className="bg-gradient-to-r from-luhya-red/10 to-luhya-gold/10 border border-luhya-red/20 rounded-xl p-4 sm:p-6">
+                  <h4 className="text-lg sm:text-xl font-bold text-luhya-red mb-3">Beneficiary Eligibility</h4>
+                  <div className="space-y-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    <p>
+                      A beneficiary is only someone who meets the strict eligibility rules set out in the welfare policy.
+                      These rules cannot be changed or expanded.
+                    </p>
+                    <p className="font-medium text-luhya-navy">To qualify as a beneficiary:</p>
+                    <ul className="list-disc pl-5 space-y-2">
+                      <li>
+                        <span className="font-medium text-luhya-navy">Biological parents</span> are the primary beneficiaries.
+                        Use <span className="font-medium">Mother</span> or <span className="font-medium">Father</span> when listing them below.
+                      </li>
+                      <li>
+                        <span className="font-medium text-luhya-navy">Next of Kin</span> receives the payout if biological parents are unavailable.
+                        Nominate your Next of Kin in the section below.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Next of Kin */}
+                <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-3 sm:p-4 rounded-t-lg">
+                  <h4 className="text-lg sm:text-xl font-bold text-white">Next of Kin</h4>
+                </div>
+                <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-4 sm:p-6 space-y-4 sm:space-y-6">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    If biological parents are unavailable, the payout goes to the Next of Kin listed here.
+                    Please provide accurate contact details.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">First/Given Name</Label>
+                      <Input
+                        value={formData.nextOfKin.firstName}
+                        onChange={(e) => handleNextOfKinChange("firstName", e.target.value)}
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Middle Name</Label>
+                      <Input
+                        value={formData.nextOfKin.middleName}
+                        onChange={(e) => handleNextOfKinChange("middleName", e.target.value)}
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Surname/Family Name</Label>
+                      <Input
+                        value={formData.nextOfKin.surname}
+                        onChange={(e) => handleNextOfKinChange("surname", e.target.value)}
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-luhya-navy font-medium">Phone</Label>
+                      <Input
+                        value={formData.nextOfKin.phone}
+                        onChange={(e) => handleNextOfKinChange("phone", e.target.value)}
+                        placeholder="+61 ..."
+                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 {/* Welfare Beneficiaries Section */}
                 <div className="bg-gradient-to-r from-luhya-navy to-luhya-gold p-3 sm:p-4 rounded-t-lg">
                   <h4 className="text-lg sm:text-xl font-bold text-white">Welfare Beneficiaries (5 Family Members)</h4>
@@ -573,11 +669,11 @@ const Welfare = () => {
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-3 sm:mt-4">
                         <div className="space-y-2">
-                          <Label className="text-luhya-navy font-medium text-sm sm:text-base">Date of Birth</Label>
+                          <Label className="text-luhya-navy font-medium text-sm sm:text-base">Phone</Label>
                           <Input
-                            type="date"
-                            value={beneficiary.dateOfBirth}
-                            onChange={(e) => handleBeneficiaryChange(index, 'dateOfBirth', e.target.value)}
+                            value={beneficiary.phone}
+                            onChange={(e) => handleBeneficiaryChange(index, 'phone', e.target.value)}
+                            placeholder="+61 ..."
                             className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
                           />
                         </div>
@@ -588,11 +684,11 @@ const Welfare = () => {
                               <SelectValue placeholder="Select relationship" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="partner">Partner</SelectItem>
-                              <SelectItem value="child">Child</SelectItem>
-                              <SelectItem value="parent">Parent</SelectItem>
-                              <SelectItem value="sibling">Sibling</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
+                              {BENEFICIARY_RELATIONSHIPS.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {option.label}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                         </div>
@@ -649,7 +745,7 @@ const Welfare = () => {
                         required
                       />
                       <label htmlFor="constitutionConsent" className="text-sm text-luhya-navy">
-                        I confirm I have read and understand the Constitution of the Association and agree to abide by it.
+                        I confirm I have read and understood the Welfare Constitution and agree to abide by it.
                             </label>
                           </div>
                         </div>
