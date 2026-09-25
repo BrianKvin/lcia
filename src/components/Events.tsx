@@ -159,7 +159,40 @@ const Events = () => {
                             {event.attendees} attending
                           </div>
                         </div>
-                      </CardContent>
+        <div className="mt-6 border-t pt-6">
+<h4 className="text-lg font-semibold text-center mb-4">
+🎟️ Get Your Tickets
+</h4>
+
+<div className="flex flex-col sm:flex-row gap-3 justify-center">
+<a
+href="https://buy.stripe.com/aFa5kxcEI9p12pMfZ0bQY00"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+>
+Early Bird — $90
+</a>
+
+<a
+href="https://buy.stripe.com/7sYfZb0w0gRt3tQ8wybQY02"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+>
+Standard — $100
+</a>
+
+<a
+href="https://buy.stripe.com/5kQ8wJfqUgRt80a28abQY01"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+>
+Group of 4 — $380
+</a>
+</div>
+</div>              </CardContent>
                     </>
                   )}
                 </Card>
