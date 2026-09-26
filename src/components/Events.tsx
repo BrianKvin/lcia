@@ -166,7 +166,7 @@ const Events = () => {
 
 <div className="flex flex-col sm:flex-row gap-3 justify-center">
 <a
-href="https://buy.stripe.com/aFa5kxcEI9p12pMfZ0bQY00"
+href="https://buy.stripe.com/aFa5kxceI9p12pMfZ0bQY00"
 target="_blank"
 rel="noopener noreferrer"
 className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
@@ -184,7 +184,7 @@ Standard — $100
 </a>
 
 <a
-href="https://buy.stripe.com/5kQ8wJfqUgRt80a28abQY01"
+href="https://buy.stripe.com/5kQ8WJfqUgRt80a28abQY01"
 target="_blank"
 rel="noopener noreferrer"
 className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
