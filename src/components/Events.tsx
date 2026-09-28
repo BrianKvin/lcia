@@ -13,28 +13,17 @@ const Events = () => {
     time: string;
     location: string;
     attendees: string;
-    description: string;
-    image?: string;
+    description: string; image?: string;
   }> = [
     {
-      title: "Mulembe Community Mid-Year Catch Up",
-      date: "July 4, 2026",
-      time: "2:00 PM",
-      location: "Venue details will be shared with members",
-      attendees: "All members and guests welcome",
-      description:
-        "Join us for our mid-year gathering: food, music, reconnecting with friends, and celebrating our community together.",
-      image: midYearCatchupPoster,
-    },
-    {
-      title: "Community Elections",
-      date: "December 2026",
-      time: "To be announced",
-      location: "Details will be communicated to members",
-      attendees: "Eligible members",
-      description:
-        "Coming up: community elections to choose a new leadership team. Watch this space for dates, nomination information, and how to take part.",
-    },
+ title: "Mulembe Night",
+ date: "Saturday, 28 November 2026",
+ time: "3:00 PM till midnight",
+ location: "Venue TBA",
+ attendees: "All Kenyan communities & friends of Mulembe",
+ description: "Join us for Mulembe Night — a special celebration bringing together Kenyan communities and friends of Mulembe for an evening of culture, connection and celebration. Enjoy great company, music, food and a celebration of our diverse Kenyan heritage. Come together as we celebrate the spirit of community: One Kenya • Many Cultures • One Night.",
+ image: "/assets/Mulembe-night-poster.jpeg"
+ }
   ];
 
   const pastEvents: Array<{
@@ -43,16 +32,18 @@ const Events = () => {
     time: string;
     location: string;
     attendees: string;
-    description: string;
+    description: string; image?: string;
   }> = [
     {
-      title: "End of Year Mulembe Community Meetup 🎉",
-      date: "December 13, 2025",
-      time: "2:00 PM till late",
-      location: "Henry Lawson Dr, Lansdowne NSW",
-      attendees: "60+",
-      description: "Join us for our final community gathering of the year — discussions, updates, food, and fellowship as we celebrate our achievements and unity. 🍲 Please bring a Kenyan dish to share."
-    }
+      title: "Mulembe Community Mid-Year Catch Up",
+      date: "July 4, 2026",
+      time: "2:00 PM",
+      location: "Venue details will be shared with members",
+      attendees: "All members and guests welcome",
+      description:
+        "EARLY BIRD — $90 | Planning to join us? Why wait? Get your ticket early and enjoy our special Early Bird rate. STANDARD — $100 | Ready for Mulembe Night? Get your ticket and join us for an evening of culture, connection, food, music and celebration. GROUP OF 4 — $380 | Coming with friends? We’ve got you! Grab 4 tickets together and enjoy a discounted group rate.",
+      image: midYearCatchupPoster,
+    },
   ];
 
 
@@ -169,7 +160,7 @@ const Events = () => {
 href="https://buy.stripe.com/aFa5kxceI9p12pMfZ0bQY00"
 target="_blank"
 rel="noopener noreferrer"
-className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition"
 >
 Early Bird — $90
 </a>
@@ -178,7 +169,7 @@ Early Bird — $90
 href="https://buy.stripe.com/7sYfZb0w0gRt3tQ8wybQY02"
 target="_blank"
 rel="noopener noreferrer"
-className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition"
 >
 Standard — $100
 </a>
@@ -187,7 +178,7 @@ Standard — $100
 href="https://buy.stripe.com/4gMaERguY9p13tQ146bQY03"
 target="_blank"
 rel="noopener noreferrer"
-className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90 transition"
+className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition"
 >
 Group of 4 — $380
 </a>
