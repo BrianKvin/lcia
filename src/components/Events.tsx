@@ -183,6 +183,11 @@ className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 
 Group of 4 — $380
 </a>
 </div>
+ <div className="mt-6 space-y-4 text-left text-gray-700">
+ <p><strong>EARLY BIRD — $90</strong><br />Planning to join us? Why wait? Get your ticket early and enjoy our special Early Bird rate.</p>
+ <p><strong>STANDARD — $100</strong><br />Ready for Mulembe Night? Get your ticket and join us for an evening of culture, connection, food, music and celebration.</p>
+ <p><strong>GROUP OF 4 — $380</strong><br />Coming with friends? We’ve got you! Grab 4 tickets together and enjoy a discounted group rate.</p>
+ </div>
 </div>              </CardContent>
                     </>
                   )}
