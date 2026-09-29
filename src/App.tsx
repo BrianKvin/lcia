@@ -77,7 +77,8 @@ const App = () => (
                   <Route path="*" element={<NotFound />} />
                 </Route>
               </Route>
-              <Route path="/" element={<Index />} />
+              <Route path="/events" element={<EventsPage />} />
+ <Route path="/" element={<Index />} />
               <Route path="/culture/sub-tribes" element={<SubTribesPage />} />
               <Route
                 path="/culture/taste-of-home"
