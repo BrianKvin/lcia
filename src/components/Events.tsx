@@ -37,9 +37,10 @@ const Events = () => {
       description: "Bring the little ones along and let them enjoy Mulembe Night with the family." },
   ];
 
-  // Mulembe Night: 3 PM – midnight, Sydney time (AEDT, UTC+11)
-  const eventStart = new Date("2026-11-28T15:00:00+11:00");
-  const daysToGo = Math.ceil((eventStart.getTime() - Date.now()) / 86_400_000);
+  // Mulembe Night: 3 PM – midnight, Sydney time (AEDT, UTC+11).
+  // Count calendar days in Sydney so the number changes at midnight there, for every visitor.
+  const sydneyToday = new Intl.DateTimeFormat("en-CA", { timeZone: "Australia/Sydney" }).format(new Date());
+  const daysToGo = Math.round((Date.parse("2026-11-28") - Date.parse(sydneyToday)) / 86_400_000);
   const calendarFile =
     "data:text/calendar;charset=utf-8," +
     encodeURIComponent(
@@ -131,12 +132,18 @@ const Events = () => {
                     <div className="text-base sm:text-xl font-bold tracking-wide">NOVEMBER 2026</div>
                     <div className="text-sm sm:text-base text-[#c9d3cc]">Saturday · {event.time}</div>
                   </div>
-                  {daysToGo > 0 && (
+                  {daysToGo >= 0 && (
                     <div className="ml-auto flex shrink-0 flex-col items-center justify-center h-20 w-20 sm:h-28 sm:w-28 rounded-full border-[1.5px] border-dashed border-[#e0b75a]">
-                      <div className="font-display font-bold text-2xl sm:text-4xl leading-none">{daysToGo}</div>
-                      <div className="text-[9px] sm:text-xs tracking-widest text-[#c9d3cc]">
-                        {daysToGo === 1 ? "DAY TO GO" : "DAYS TO GO"}
-                      </div>
+                      {daysToGo === 0 ? (
+                        <div className="font-display font-bold text-lg sm:text-2xl leading-none text-[#e0b75a]">TODAY</div>
+                      ) : (
+                        <>
+                          <div className="font-display font-bold text-2xl sm:text-4xl leading-none">{daysToGo}</div>
+                          <div className="text-[9px] sm:text-xs tracking-widest text-[#c9d3cc]">
+                            {daysToGo === 1 ? "DAY TO GO" : "DAYS TO GO"}
+                          </div>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
