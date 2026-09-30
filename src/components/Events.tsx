@@ -110,7 +110,7 @@ const Events = () => {
 
         {/* Upcoming Events */}
         {upcomingEvents.map((event, index) => (
-          <div key={index} className="mb-20">
+          <div key={index} id="mulembe-night" className="mb-20 scroll-mt-24">
             <div className="grid lg:grid-cols-[minmax(0,1fr)_380px] gap-10 lg:gap-16 rounded-3xl bg-[#0f2c20] text-[#f4efe4] px-5 pt-10 sm:px-10 lg:p-14">
               <div className="flex flex-col gap-6 lg:gap-7 min-w-0">
                 <div className="flex items-center gap-3">
