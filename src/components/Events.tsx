@@ -150,45 +150,7 @@ const Events = () => {
                             {event.attendees} attending
                           </div>
                         </div>
-        <div className="mt-6 border-t pt-6">
-<h4 className="text-lg font-semibold text-center mb-4">
-🎟️ Get Your Tickets
-</h4>
-
-<div className="flex flex-col sm:flex-row gap-3 justify-center">
-<a
-href="https://buy.stripe.com/aFa5kxceI9p12pMfZ0bQY00"
-target="_blank"
-rel="noopener noreferrer"
-className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition"
->
-Early Bird — $90
-</a>
-
-<a
-href="https://buy.stripe.com/7sYfZb0w0gRt3tQ8wybQY02"
-target="_blank"
-rel="noopener noreferrer"
-className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition"
->
-Standard — $100
-</a>
-
-<a
-href="https://buy.stripe.com/4gMaERguY9p13tQ146bQY03"
-target="_blank"
-rel="noopener noreferrer"
-className="inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 transition"
->
-Group of 4 — $380
-</a>
-</div>
- <div className="mt-6 space-y-4 text-left text-gray-700">
- <p><strong>EARLY BIRD — $90</strong><br />Planning to join us? Why wait? Get your ticket early and enjoy our special Early Bird rate.</p>
- <p><strong>STANDARD — $100</strong><br />Ready for Mulembe Night? Get your ticket and join us for an evening of culture, connection, food, music and celebration.</p>
- <p><strong>GROUP OF 4 — $380</strong><br />Coming with friends? We’ve got you! Grab 4 tickets together and enjoy a discounted group rate.</p>
- </div>
-</div>              </CardContent>
+                      </CardContent>
                     </>
                   )}
                 </Card>
@@ -197,7 +159,77 @@ Group of 4 — $380
           </div>
         )}
 
-        {/* Past Events */}
+        <div id="tickets" className="mt-6 border-t pt-6">
+<h4 className="text-lg font-semibold text-center mb-4">
+🎟️ Get Your Tickets
+</h4>
+
+<div className="space-y-5">
+
+<div>
+<a
+href="https://buy.stripe.com/aFa5kxceI9p12pMfZ0bQY00"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex w-full items-center justify-center rounded-md bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-700 transition"
+>
+Early Bird — $90
+</a>
+<p className="mt-2 text-gray-700">
+<strong>EARLY BIRD — $90</strong><br />
+Planning to join us? Why wait? Get your ticket early and enjoy our special Early Bird rate.
+</p>
+</div>
+
+<div>
+<a
+href="https://buy.stripe.com/7sYfZb0w0gRt3tQ8wybQY02"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex w-full items-center justify-center rounded-md bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-700 transition"
+>
+Standard — $100
+</a>
+<p className="mt-2 text-gray-700">
+<strong>STANDARD — $100</strong><br />
+Ready for Mulembe Night? Get your ticket and join us for an evening of culture, connection, food, music and celebration.
+</p>
+</div>
+
+<div>
+<a
+href="https://buy.stripe.com/4gMaERguY9p13tQ146bQY03"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex w-full items-center justify-center rounded-md bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-700 transition"
+>
+Group of 4 — $380
+</a>
+<p className="mt-2 text-gray-700">
+<strong>GROUP OF 4 — $380</strong><br />
+Coming with friends? We’ve got you! Grab 4 tickets together and enjoy a discounted group rate.
+</p>
+</div>
+
+<div>
+<a
+href="https://buy.stripe.com/5kQ28lceI0Svd4qcMObQY04"
+target="_blank"
+rel="noopener noreferrer"
+className="inline-flex w-full items-center justify-center rounded-md bg-green-600 px-4 py-3 text-sm font-semibold text-white hover:bg-green-700 transition"
+>
+Kids — $20
+</a>
+<p className="mt-2 text-gray-700">
+<strong>KIDS — $20</strong><br />
+Bring the little ones along and let them enjoy Mulembe Night with the family.
+</p>
+</div>
+
+</div>
+</div>
+
+{/* Past Events */}
         {pastEvents.length > 0 && (
           <div className="mb-16">
             <h3 className="text-2xl font-bold mb-8 flex items-center">
