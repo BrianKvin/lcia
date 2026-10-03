@@ -61,13 +61,15 @@ const Events = () => {
       ].join("\r\n")
     );
 
-  const pastEvents: Array<{
+  // Set `hidden: true` to keep an event in the code without showing it on the site.
+  const allPastEvents: Array<{
     title: string;
     date: string;
     time: string;
     location: string;
     attendees: string;
     description: string; image?: string;
+    hidden?: boolean;
   }> = [
     {
       title: "Mulembe Community Mid-Year Catch Up",
@@ -78,8 +80,10 @@ const Events = () => {
       description:
         "EARLY BIRD — $90 | Planning to join us? Why wait? Get your ticket early and enjoy our special Early Bird rate. STANDARD — $100 | Ready for Mulembe Night? Get your ticket and join us for an evening of culture, connection, food, music and celebration. GROUP OF 4 — $380 | Coming with friends? We’ve got you! Grab 4 tickets together and enjoy a discounted group rate.",
       image: midYearCatchupPoster,
+      hidden: true,
     },
   ];
+  const pastEvents = allPastEvents.filter((event) => !event.hidden);
 
 
   return (
