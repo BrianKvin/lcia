@@ -61,7 +61,7 @@ const Gallery = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedImageIndex, photos.length]);
+  }, [selectedImageIndex]);
 
   const handleOpenImage = (index: number) => {
     setSelectedImageIndex(index);
