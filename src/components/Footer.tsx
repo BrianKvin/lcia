@@ -43,6 +43,7 @@ const Footer = () => {
               <li><button onClick={() => scrollToSection('events')} className="text-left w-full text-white/80 hover:text-white transition-colors">Events</button></li>
               <li><button onClick={() => scrollToSection('community')} className="text-left w-full text-white/80 hover:text-white transition-colors">Community</button></li>
               <li><button onClick={() => scrollToSection('leadership')} className="text-left w-full text-white/80 hover:text-white transition-colors">Leadership</button></li>
+              <li><Link to="/leadership-interest" className="text-white/80 hover:text-white transition-colors">Leadership Expression of Interest</Link></li>
               <li><button onClick={() => scrollToSection('membership')} className="text-left w-full text-white/80 hover:text-white transition-colors">Membership</button></li>
               <li><button onClick={() => scrollToSection('business')} className="text-left w-full text-white/80 hover:text-white transition-colors">Business Directory</button></li>
               <li><button onClick={() => scrollToSection('welfare')} className="text-left w-full text-white/80 hover:text-white transition-colors">Welfare</button></li>

@@ -5,6 +5,7 @@ import Events from "@/components/Events";
 import Gallery from "@/components/Gallery";
 import Community from "@/components/Community";
 import Leadership from "@/components/Leadership";
+import LeadershipInterest from "@/components/LeadershipInterest";
 import Membership from "@/components/Membership";
 import BusinessDirectory from "@/components/BusinessDirectory";
 import Welfare from "@/components/Welfare";
@@ -34,6 +35,7 @@ const Index = ({ scrollTo }: { scrollTo?: string }) => {
       <Gallery />
       <Community />
       <Leadership />
+      <LeadershipInterest />
       <Membership />
       <BusinessDirectory />
       <Footer />

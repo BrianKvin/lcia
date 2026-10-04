@@ -60,6 +60,14 @@ const Hero = () => {
                 Join Welfare
               </Button>
             </div>
+            <button
+              type="button"
+              onClick={() => scrollToSection('leadership-interest')}
+              className="inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-luhya-navy underline decoration-luhya-gold underline-offset-4 hover:text-community-warm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-luhya-gold"
+            >
+              Interested in a leadership role? Express your interest
+              <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+            </button>
           </div>
 
           {/* Image */}

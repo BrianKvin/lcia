@@ -1,5 +1,42 @@
 # Mulembe Community NSW - Deployment Guide
 
+## Leadership Expression of Interest
+
+The homepage includes the leadership form, and `/#/leadership-interest` opens it
+as a standalone page for sharing. Its **Copy form link** button uses the current
+deployment address. The same three-step form is used in both locations:
+constitution acknowledgment, position selection, and applicant details.
+The constitution opens in an inline PDF preview with a download option and a
+return-to-acknowledgment button, preserving the applicant's form progress.
+Applicants must also provide a statement explaining why they would like to serve
+in their selected role(s), up to 2,000 characters. The statement is validated on
+the server and included in the review email and both attachments.
+
+Keep `src/assets/OFFICIAL MULEMBE COMMUNITY NSW INC CONSTITUTION. 2026.pdf` with
+the source when committing or deploying. Vite bundles this document into `dist/assets/`.
+The checkbox records the applicant's acknowledgment that they have read the
+document; opening a PDF alone cannot establish that they read it. Expressions of
+interest are for review; formal nominations follow the constitution's process.
+
+The form posts to `leadership-interest.php` alongside the deployed `index.html`.
+Vite copies this endpoint from `public/` into `dist/`. It validates the required
+details, selected roles, and the 2026 constitution acknowledgment on the server,
+then emails the review details and CSV/JSON attachments to
+`mulembecommunitysydneyau@gmail.com`. It uses
+`no-reply@mulembecommunitynswinc.org.au` as the sender and the validated applicant
+email as Reply-To. Configure the host to permit that sender and PHP `mail()`.
+
+Deploy the full `dist/` contents to PHP-enabled hosting. Vite's local development
+and preview servers do not execute PHP. A successful PHP mail result means the
+host accepted the message for sending; inbox arrival must still be verified on
+the deployed host. Before announcing the link, submit an authorized test and
+check that the review email and its attachments arrive. No records are written
+to an application database, and the existing community and welfare endpoints
+remain separate.
+
+Run `php tests/leadership-interest.test.php` to check endpoint validation, email
+contents, and failure handling with a mock mail transport (no messages are sent).
+
 ## 🚀 Pre-Deployment Checklist
 
 ✅ **Build Status**: Project builds successfully with no errors  
