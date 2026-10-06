@@ -3,7 +3,8 @@ import PhoneInput from "@/components/PhoneInput";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Send, CheckCircle2, ArrowRight, Lock } from "lucide-react";
+import { Send, CheckCircle2, ArrowRight, Lock, FileText, Eye, Download, ArrowLeft } from "lucide-react";
+import welfareConstitutionUrl from "@/assets/MULEMBE WELFARE CONSTITUTION.pdf?url";
 import { COMMUNITY_REGISTRATION_FEE, WELFARE_CONTRIBUTION, JOINING_TOTAL, WELFARE_JOINING_PAYMENT_URL } from "@/constants/welfare";
 import { useState, useRef, useEffect } from "react";
 import type React from "react";
@@ -63,6 +64,29 @@ const WelfareApplicationForm = () => {
   const [formData, setFormData] = useState(createEmptyForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  // Like the leadership form: the constitution must be opened before it can be acknowledged.
+  const [constitutionOpened, setConstitutionOpened] = useState(false);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const previewRef = useRef<HTMLElement>(null);
+  const consentRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!previewVisible) return;
+    previewRef.current?.focus({ preventScroll: true });
+    previewRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+  }, [previewVisible]);
+
+  const openConstitution = () => {
+    setConstitutionOpened(true);
+    if (previewVisible) previewRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    setPreviewVisible(true);
+  };
+
+  const closeConstitution = () => {
+    setPreviewVisible(false);
+    consentRef.current?.focus({ preventScroll: true });
+    consentRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+  };
 
   const signatureRef = useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
@@ -649,20 +673,86 @@ const WelfareApplicationForm = () => {
                   <h4 className="text-lg sm:text-xl font-bold text-white">Declarations</h4>
                 </div>
                 <div className="bg-white border border-luhya-gold/30 rounded-b-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
-                  <div className="bg-luhya-gold/10 p-4 rounded-lg border-l-4 border-luhya-gold">
+                  {/* Welfare Constitution: open it to enable the acknowledgement below */}
+                  <div className="rounded-lg border border-luhya-gold/30 bg-luhya-cream/40 p-4 sm:p-5">
+                    <div className="flex items-start gap-3">
+                      <FileText aria-hidden="true" className="mt-0.5 h-6 w-6 shrink-0 text-luhya-green" />
+                      <div className="min-w-0">
+                        <h5 className="font-semibold text-luhya-navy">MULEMBE WELFARE CONSTITUTION</h5>
+                        <p className="mt-1 text-sm text-muted-foreground">Version 1.0 · PDF · Read here or download a copy</p>
+                      </div>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={openConstitution}
+                      aria-expanded={previewVisible}
+                      aria-controls="welfare-constitution-preview"
+                      className="mt-4 w-full sm:w-auto gap-2 border-luhya-green text-luhya-green"
+                    >
+                      <Eye className="w-4 h-4" aria-hidden="true" />
+                      View the constitution
+                    </Button>
+                  </div>
+                  {previewVisible && (
+                    <section
+                      ref={previewRef}
+                      id="welfare-constitution-preview"
+                      tabIndex={-1}
+                      aria-label="Welfare Constitution preview"
+                      className="scroll-mt-24 overflow-hidden rounded-lg border border-luhya-gold/30 focus:outline-none"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-luhya-gold/20 bg-white p-3 sm:p-4">
+                        <div>
+                          <div className="font-semibold text-luhya-navy">Constitution preview</div>
+                          <div className="text-xs text-muted-foreground">Mulembe Welfare Association NSW · Version 1.0</div>
+                        </div>
+                        <Button asChild type="button" variant="outline" className="gap-2">
+                          <a href={welfareConstitutionUrl} download="MULEMBE WELFARE CONSTITUTION.pdf">
+                            <Download className="w-4 h-4" aria-hidden="true" />
+                            Download PDF
+                          </a>
+                        </Button>
+                      </div>
+                      <iframe
+                        src={`${welfareConstitutionUrl}#navpanes=0&view=FitH&zoom=page-width`}
+                        title="MULEMBE WELFARE CONSTITUTION"
+                        className="block h-[70vh] min-h-[420px] max-h-[800px] w-full border-0 bg-gray-100"
+                      />
+                      <div className="space-y-3 border-t border-luhya-gold/20 bg-white p-3 sm:p-4">
+                        <p className="text-sm text-muted-foreground">
+                          Read through the document, then return to the acknowledgement below. If your browser cannot display
+                          the preview, use Download PDF to read a copy.
+                        </p>
+                        <Button type="button" variant="outline" onClick={closeConstitution} className="gap-2">
+                          <ArrowLeft className="w-4 h-4" aria-hidden="true" />
+                          Back to acknowledgement
+                        </Button>
+                      </div>
+                    </section>
+                  )}
+                  <div className={`bg-luhya-gold/10 p-4 rounded-lg border-l-4 border-luhya-gold ${constitutionOpened ? "" : "opacity-70"}`}>
                     <div className="flex items-start gap-3">
                       <input
+                        ref={consentRef}
                         type="checkbox"
                         id="constitutionConsent"
                         checked={formData.constitutionConsent}
                         onChange={(e) => handleCheckboxChange('constitutionConsent', e.target.checked)}
                         className="mt-1"
                         required
+                        disabled={!constitutionOpened}
+                        aria-describedby="constitution-consent-help"
                       />
                       <label htmlFor="constitutionConsent" className="text-sm text-luhya-navy">
                         I confirm I have read and understood the Welfare Constitution and agree to abide by it.
                             </label>
                           </div>
+                    {!constitutionOpened && (
+                      <p id="constitution-consent-help" className="mt-2 pl-7 text-xs text-muted-foreground">
+                        Open the constitution above first to enable this acknowledgement.
+                      </p>
+                    )}
                         </div>
                   
                   <div className="bg-luhya-gold/10 p-4 rounded-lg border-l-4 border-luhya-gold">
