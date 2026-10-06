@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImg from "@/assets/photos/IMG_6463-Enhanced-NR.jpeg";
 
 const Hero = () => {
@@ -55,9 +56,11 @@ const Hero = () => {
                 Become a Member
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button onClick={() => scrollToSection('welfare-form')} variant="communityOutline" size="lg" className="group text-sm sm:text-base">
-                <Heart className="w-4 h-4" />
-                Join Welfare
+              <Button asChild variant="communityOutline" size="lg" className="group text-sm sm:text-base">
+                <Link to="/welfare/apply">
+                  <Heart className="w-4 h-4" />
+                  Join Welfare
+                </Link>
               </Button>
             </div>
             <button
