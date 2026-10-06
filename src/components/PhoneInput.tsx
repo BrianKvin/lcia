@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const COUNTRIES = [
   { code: "+61", name: "Australia", flag: "🇦🇺", example: "412 345 678" },
@@ -63,23 +64,25 @@ export default function PhoneInput({
     onChange(combine(parts.country === OTHER ? parts.customCode : parts.country, parts.local));
   };
 
-  const example = COUNTRIES.find((c) => c.code === country)?.example ?? "Phone number";
+  const selected = COUNTRIES.find((c) => c.code === country);
+  const example = selected?.example ?? "Phone number";
 
   return (
     <div className={cn("flex gap-2", className)}>
-      <select
-        aria-label="Country code"
-        value={country}
-        onChange={(e) => update({ country: e.target.value })}
-        className={cn(fieldClassName, "w-[6.75rem] shrink-0 pr-1")}
-      >
-        {COUNTRIES.map((c) => (
-          <option key={c.code} value={c.code} title={c.name}>
-            {c.flag} {c.code}
-          </option>
-        ))}
-        <option value={OTHER}>Other</option>
-      </select>
+      {/* Same dropdown as the form's other selects, so it looks the same on every device. */}
+      <Select value={country} onValueChange={(next) => update({ country: next })}>
+        <SelectTrigger aria-label="Country code" className={cn(fieldClassName, "w-[6.75rem] shrink-0 gap-1")}>
+          <SelectValue>{selected ? `${selected.flag} ${selected.code}` : "Other"}</SelectValue>
+        </SelectTrigger>
+        <SelectContent position="popper" className="min-w-[12rem]">
+          {COUNTRIES.map((c) => (
+            <SelectItem key={c.code} value={c.code}>
+              {c.flag} {c.name} {c.code}
+            </SelectItem>
+          ))}
+          <SelectItem value={OTHER}>Other country</SelectItem>
+        </SelectContent>
+      </Select>
       {country === OTHER && (
         <input
           aria-label="Country code, for example +44"
