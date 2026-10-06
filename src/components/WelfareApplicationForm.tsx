@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import PhoneInput from "@/components/PhoneInput";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,9 @@ const BENEFICIARY_RELATIONSHIPS = [
 ] as const;
 
 const BENEFICIARY_COUNT = 5;
+
+// Matches the form's other inputs.
+const PHONE_FIELD_CLASS = "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-luhya-gold/30 focus:border-luhya-gold";
 
 const createEmptyBeneficiary = () => ({
   firstName: "",
@@ -453,13 +457,12 @@ const WelfareApplicationForm = () => {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-luhya-navy font-medium">Phone *</Label>
-                      <Input
+                      <PhoneInput
                         name="phone"
                         value={formData.phone}
-                        onChange={handleInputChange}
-                        placeholder="+61 ..."
+                        onChange={(phone) => setFormData(prev => ({ ...prev, phone }))}
                         required
-                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                        fieldClassName={PHONE_FIELD_CLASS}
                       />
                     </div>
                   </div>
@@ -530,11 +533,10 @@ const WelfareApplicationForm = () => {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-luhya-navy font-medium">Phone</Label>
-                      <Input
+                      <PhoneInput
                         value={formData.nextOfKin.phone}
-                        onChange={(e) => handleNextOfKinChange("phone", e.target.value)}
-                        placeholder="+61 ..."
-                        className="border-luhya-gold/30 focus:border-luhya-gold"
+                        onChange={(phone) => handleNextOfKinChange("phone", phone)}
+                        fieldClassName={PHONE_FIELD_CLASS}
                       />
                     </div>
                   </div>
@@ -584,11 +586,10 @@ const WelfareApplicationForm = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-3 sm:mt-4">
                         <div className="space-y-2">
                           <Label className="text-luhya-navy font-medium text-sm sm:text-base">Phone</Label>
-                          <Input
+                          <PhoneInput
                             value={beneficiary.phone}
-                            onChange={(e) => handleBeneficiaryChange(index, 'phone', e.target.value)}
-                            placeholder="+61 ..."
-                            className="border-luhya-gold/30 focus:border-luhya-gold text-sm sm:text-base"
+                            onChange={(phone) => handleBeneficiaryChange(index, 'phone', phone)}
+                            fieldClassName={`${PHONE_FIELD_CLASS} sm:text-base`}
                           />
                         </div>
                         <div className="space-y-2">

@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import PhoneInput from "@/components/PhoneInput";
 import type { FormEvent } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, Download, FileText, Loader2, Send, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -310,7 +311,7 @@ const LeadershipInterestForm = () => {
                 </div>
                 <div>
                   <label htmlFor={`${id}-phone`} className="text-sm font-semibold text-luhya-navy">Phone number</label>
-                  <input id={`${id}-phone`} name="phone" type="tel" autoComplete="tel" required maxLength={40} value={details.phone} onChange={(event) => setDetails((current) => ({ ...current, phone: event.target.value }))} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? `${id}-phone-error` : undefined} className={INPUT_CLASS} />
+                  <PhoneInput id={`${id}-phone`} name="phone" required value={details.phone} onChange={(phone) => setDetails((current) => ({ ...current, phone }))} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? `${id}-phone-error` : undefined} className="mt-2" fieldClassName={INPUT_CLASS.replace("mt-2 block w-full ", "")} />
                   {fieldError("phone")}
                 </div>
                 <div className="sm:col-span-2">
