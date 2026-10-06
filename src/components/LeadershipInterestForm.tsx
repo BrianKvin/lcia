@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { opensPdfExternally } from "@/lib/utils";
 import PhoneInput from "@/components/PhoneInput";
 import type { FormEvent } from "react";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, Download, FileText, Loader2, Send, Eye } from "lucide-react";
@@ -74,6 +75,10 @@ const LeadershipInterestForm = () => {
 
   function openPreview() {
     setConstitutionOpened(true);
+    if (opensPdfExternally()) {
+      window.open(constitutionUrl, "_blank", "noopener");
+      return;
+    }
     setPreviewVisible(true);
     if (previewVisible) {
       previewRef.current?.focus({ preventScroll: true });

@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import PhoneInput from "@/components/PhoneInput";
+import { opensPdfExternally } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -78,6 +79,10 @@ const WelfareApplicationForm = () => {
 
   const openConstitution = () => {
     setConstitutionOpened(true);
+    if (opensPdfExternally()) {
+      window.open(welfareConstitutionUrl, "_blank", "noopener");
+      return;
+    }
     if (previewVisible) previewRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
     setPreviewVisible(true);
   };
