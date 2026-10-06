@@ -11,7 +11,7 @@ const Hero = () => {
     }
   };
   return (
-    <section id="home" className="min-h-screen flex items-center pt-20 sm:pt-24 pb-16 sm:pb-20 bg-white scroll-mt-24">
+    <section id="home" className="flex items-center pt-24 sm:pt-28 pb-10 sm:pb-12 bg-white scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
           {/* Content */}
