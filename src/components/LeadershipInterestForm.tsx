@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { EMAIL } from "@/constants/contact";
 import { CONSTITUTION_VERSION, LEADERSHIP_ROLES } from "@/constants/leadership-interest";
 import type { LeadershipRoleId } from "@/constants/leadership-interest";
-import constitutionUrl from "@/assets/OFFICIAL MULEMBE COMMUNITY NSW INC CONSTITUTION. 2026.pdf?url";
+import constitutionUrl from "@/assets/MULEMBE WELFARE CONSTITUTION.pdf?url";
 
 const STEPS = ["Constitution", "Positions", "Your details"];
 const INITIAL_DETAILS = { fullName: "", dateOfBirth: "", address: "", email: "", phone: "", motivation: "" };
@@ -235,13 +235,13 @@ const LeadershipInterestForm = () => {
 
           {step === 0 && (
             <div className="mt-5 space-y-6">
-              <p className="leading-relaxed text-slate-600">Please read the official Mulembe Community NSW Inc Constitution (2026) before expressing your interest in a leadership position.</p>
+              <p className="leading-relaxed text-slate-600">Please read the Mulembe Welfare Association NSW Constitution before expressing your interest in a leadership position.</p>
               <div className="rounded-2xl border border-luhya-gold/40 bg-luhya-cream p-5 sm:p-6">
                 <div className="flex items-start gap-4">
                   <FileText aria-hidden="true" className="mt-1 h-7 w-7 shrink-0 text-luhya-green" />
                   <div className="min-w-0">
-                    <h4 className="font-semibold text-luhya-navy">Official community constitution</h4>
-                    <p className="mt-1 text-sm text-slate-600">2026 edition · PDF · Read here or download a copy</p>
+                    <h4 className="font-semibold text-luhya-navy">Welfare Constitution</h4>
+                    <p className="mt-1 text-sm text-slate-600">Version 1.0 · PDF · Read here or download a copy</p>
                   </div>
                 </div>
                 <Button type="button" variant="outline" aria-expanded={previewVisible} aria-controls={`${id}-constitution-preview`} onClick={openPreview} className="mt-5 h-auto min-h-11 w-full whitespace-normal border-luhya-green bg-white py-3 text-luhya-green sm:w-auto">
@@ -253,13 +253,13 @@ const LeadershipInterestForm = () => {
                   <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 bg-white p-4 sm:p-5">
                     <div>
                       <h4 id={`${id}-preview-title`} className="font-semibold text-luhya-navy">Constitution preview</h4>
-                      <p className="mt-1 text-xs text-slate-500">Mulembe Community NSW Inc · 2026</p>
+                      <p className="mt-1 text-xs text-slate-500">Mulembe Welfare Association NSW · Version 1.0</p>
                     </div>
                     <Button asChild variant="outline" className="min-h-11 border-luhya-navy/20 text-luhya-navy">
-                      <a href={constitutionUrl} download="Mulembe-Community-NSW-Constitution-2026.pdf"><Download aria-hidden="true" />Download PDF</a>
+                      <a href={constitutionUrl} download="Mulembe-Welfare-Constitution.pdf"><Download aria-hidden="true" />Download PDF</a>
                     </Button>
                   </div>
-                  <iframe src={`${constitutionUrl}#navpanes=0&view=FitH&zoom=page-width`} title="Official Mulembe Community NSW Inc Constitution 2026" className="block h-[70vh] min-h-[420px] max-h-[800px] w-full border-0 bg-slate-100" />
+                  <iframe src={`${constitutionUrl}#navpanes=0&view=FitH&zoom=page-width`} title="Mulembe Welfare Association NSW Constitution" className="block h-[70vh] min-h-[420px] max-h-[800px] w-full border-0 bg-slate-100" />
                   <div className="space-y-4 border-t border-slate-200 bg-white p-4 sm:p-5">
                     <p className="text-sm leading-relaxed text-slate-600">Read through the document, then return to the acknowledgement below. If your browser cannot display the preview, use Download PDF to read a copy.</p>
                     <Button type="button" variant="outline" onClick={closePreview} className="h-auto min-h-11 whitespace-normal text-luhya-navy"><ArrowLeft aria-hidden="true" />Back to acknowledgement</Button>
@@ -268,7 +268,7 @@ const LeadershipInterestForm = () => {
               )}
               <label htmlFor={`${id}-constitutionConsent`} className={`flex items-start gap-3 rounded-xl border p-4 ${constitutionConsent ? "border-luhya-green bg-luhya-green/5" : "border-slate-200"}`}>
                 <input ref={consentRef} id={`${id}-constitutionConsent`} type="checkbox" required disabled={!constitutionOpened} checked={constitutionConsent} onChange={(event) => setConstitutionConsent(event.target.checked)} aria-describedby={`${id}-constitution-help`} aria-invalid={Boolean(errors.constitutionConsent)} className="mt-1 h-5 w-5 shrink-0 accent-luhya-green focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-luhya-green" />
-                <span className="text-sm leading-relaxed text-luhya-navy">I confirm that I have read the official Mulembe Community NSW Inc Constitution (2026) before submitting my expression of interest.</span>
+                <span className="text-sm leading-relaxed text-luhya-navy">I confirm that I have read the Mulembe Welfare Association NSW Constitution before submitting my expression of interest.</span>
               </label>
               <p id={`${id}-constitution-help`} className="text-sm text-slate-500">{constitutionOpened ? "After reading the document, tick the acknowledgement above to continue." : "Open the constitution first to enable the acknowledgement."}</p>
               <p className="text-sm text-slate-500">Formal nominations follow the process in the constitution.</p>
@@ -331,7 +331,7 @@ const LeadershipInterestForm = () => {
                 <ul className="mt-3 flex flex-wrap gap-2" aria-label="Selected positions">
                   {LEADERSHIP_ROLES.filter((role) => positions.includes(role.id)).map((role) => <li key={role.id} className="rounded-full border border-luhya-green/20 bg-white px-3 py-1.5 text-sm text-luhya-green">{role.title}</li>)}
                 </ul>
-                <p className="mt-4 flex items-start gap-2 text-sm text-slate-600"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-luhya-green" />You have confirmed reading the 2026 constitution.</p>
+                <p className="mt-4 flex items-start gap-2 text-sm text-slate-600"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-luhya-green" />You have confirmed reading the constitution.</p>
               </div>
               <div>
                 <label htmlFor={`${id}-motivation`} className="text-sm font-semibold text-luhya-navy">
