@@ -1,152 +1,149 @@
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Heart, Users, DollarSign, Shield, Send } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Heart, Users, DollarSign, Shield, ArrowRight, Lock } from "lucide-react";
-import { COMMUNITY_REGISTRATION_FEE, WELFARE_CONTRIBUTION, JOINING_TOTAL } from "@/constants/welfare";
 
-const welfareServices = [
-  {
-    icon: Heart,
-    title: "Bereavement Support",
-    description: "Financial and emotional support during times of loss and bereavement",
-  },
-  {
-    icon: DollarSign,
-    title: "Financial Assistance",
-    description: "Emergency financial support for community members in need",
-  },
-  {
-    icon: Users,
-    title: "Family Support",
-    description: "Support for families during difficult times and life transitions",
-  },
-  {
-    icon: Shield,
-    title: "Community Care",
-    description: "Mutual aid and support network for all community members",
-  },
-];
+const Welfare = () => {
+  const welfareServices = [
+    {
+      icon: Heart,
+      title: "Bereavement Support",
+      description: "Financial and emotional support during times of loss and bereavement",
+      highlight: true
+    },
+    {
+      icon: DollarSign,
+      title: "Financial Assistance",
+      description: "Emergency financial support for community members in need"
+    },
+    {
+      icon: Users,
+      title: "Family Support",
+      description: "Support for families during difficult times and life transitions"
+    },
+    {
+      icon: Shield,
+      title: "Community Care",
+      description: "Mutual aid and support network for all community members"
+    }
+  ];
 
-const supportProcess = [
-  {
-    title: "Contact Us",
-    description: "Reach out through our community channels or leadership team",
-  },
-  {
-    title: "Support Provided",
-    description: "Receive the assistance you need with dignity and respect",
-  },
-];
+  const supportProcess = [
+    {
+      step: "1",
+      title: "Contact Us",
+      description: "Reach out through our community channels or leadership team"
+    },
+    {
+      step: "2",
+      title: "Support Provided",
+      description: "Receive the assistance you need with dignity and respect"
+    }
+  ];
 
-const Welfare = () => (
-  <section id="welfare" className="py-20 bg-white scroll-mt-24">
-    <div className="container mx-auto px-4 lg:px-8">
-      <div className="grid lg:grid-cols-[minmax(0,1fr)_400px] gap-12 lg:gap-16 items-start">
-        <div className="min-w-0">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="block h-0.5 w-8 lg:w-10 bg-community-warm" />
-            <span className="text-xs sm:text-sm font-bold tracking-[0.22em] text-community-warm">WELFARE FUND</span>
-          </div>
-          <h2 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.02] tracking-tight text-[#17201b]">
-            Standing together in <span className="italic font-semibold text-[#0f2c20]">times of need</span>
+  return (
+    <section id="welfare" className="py-20 bg-gradient-to-b from-luhya-cream/30 to-white scroll-mt-24">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-luhya-red to-luhya-green bg-clip-text text-transparent">
+              🌿 Welfare Fund
+            </span>
           </h2>
-          <div className="mt-6 space-y-4 text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl">
+          <h3 className="text-xl md:text-2xl font-semibold text-luhya-navy mb-6">
+            Standing Together in Times of Need
+          </h3>
+          <div className="text-lg text-muted-foreground max-w-4xl mx-auto space-y-4">
             <p>
-              Life in a new country brings joy and opportunity, but it can also bring challenges we never expect. In
-              moments of loss, being far from home makes everything feel heavier. As a community, we believe no member
-              should walk that journey alone.
+              Life in a new country brings joy and opportunity, but it can also bring challenges we never expect. 
+              In moments of loss, being far from home makes everything feel heavier. As a community, we believe 
+              no member should walk that journey alone.
             </p>
             <p>
-              The Mulembe Community NSW Welfare Fund was created so that when difficult times arise, we can stand together
-              in strength and compassion. Through member contributions and donations, the fund provides financial and
-              emotional support to families during bereavement.
+              The Mulembe Community NSW Welfare Fund was created so that when difficult times arise, we can stand 
+              together in strength and compassion. Through member contributions and donations, the fund provides 
+              financial and emotional support to families during bereavement.
             </p>
           </div>
-          <Link
-            to="/welfare/apply"
-            className="lg:hidden mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0f2c20] px-7 font-bold text-white hover:bg-[#1a4332] transition"
-          >
-            Apply to join · ${JOINING_TOTAL}
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+        </div>
 
-          <h3 className="mt-12 mb-6 text-xs sm:text-sm font-bold tracking-[0.22em] text-[#0f2c20]">
-            THIS SUPPORT CAN HELP COVER URGENT COSTS SUCH AS
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
-            {welfareServices.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="flex gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#f6f2ea] text-[#0f2c20]">
-                  <Icon className="w-5 h-5" />
-                </span>
-                <div>
-                  <div className="font-semibold text-[#17201b]">{title}</div>
-                  <p className="mt-1 text-sm text-gray-600 leading-relaxed">{description}</p>
+        {/* Support Coverage */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold mb-8 text-center text-luhya-navy">This support can help cover urgent costs such as:</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {welfareServices.map((service, index) => (
+              <Card key={index} className={`group hover:shadow-[var(--shadow-clean)] transition-all duration-300 ${
+                service.highlight 
+                  ? 'border-luhya-red/30 bg-gradient-to-br from-luhya-red/5 to-luhya-gold/5' 
+                  : 'border-luhya-gold/20'
+              }`}>
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 ${
+                    service.highlight
+                      ? 'bg-gradient-to-br from-luhya-red to-luhya-gold'
+                      : 'bg-gradient-to-br from-luhya-gold to-luhya-green'
+                  }`}>
+                    <service.icon className="w-8 h-8 text-white" />
+                  </div>
+                  
+                  <h4 className={`font-semibold text-lg mb-3 ${
+                    service.highlight ? 'text-luhya-red' : 'text-luhya-navy'
+                  }`}>
+                    {service.title}
+                  </h4>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Philosophy Section */}
+        <div className="mb-16 bg-gradient-to-r from-luhya-gold/10 to-luhya-green/10 p-8 rounded-2xl border border-luhya-gold/20">
+          <div className="text-center max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold mb-6 text-luhya-navy">Our Philosophy</h3>
+            <div className="space-y-4 text-lg text-muted-foreground">
+              <p>
+                Joining the Welfare Fund is not about expecting loss—it's about preparing with wisdom, unity, and love. 
+                It is a way of saying: <span className="font-semibold text-luhya-gold">"When life becomes heavy, your community will carry part of the weight with you."</span>
+              </p>
+              <p>
+                Together we carry the weight, together we find strength.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Support Process */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold mb-8 text-center text-luhya-navy">How Our Support Works</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {supportProcess.map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-luhya-navy to-luhya-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-white">{step.step}</span>
                 </div>
+                <h4 className="font-semibold text-lg mb-2 text-luhya-navy">{step.title}</h4>
+                <p className="text-sm text-muted-foreground">{step.description}</p>
               </div>
             ))}
           </div>
-
-          <figure className="mt-12 rounded-3xl bg-[#f6f2ea] p-6 sm:p-8">
-            <div className="font-display text-6xl leading-none text-[#e0b75a]" aria-hidden="true">“</div>
-            <blockquote className="-mt-4 font-display text-xl sm:text-2xl leading-snug text-[#17201b]">
-              When life becomes heavy, your community will carry part of the weight with you.
-            </blockquote>
-            <figcaption className="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed">
-              Joining the Welfare Fund is not about expecting loss — it's about preparing with wisdom, unity, and love.
-              Together we carry the weight, together we find strength.
-            </figcaption>
-          </figure>
         </div>
-
-        <aside className="lg:sticky lg:top-28 flex flex-col gap-5">
-          <div className="rounded-3xl bg-[#0f2c20] text-[#f4efe4] p-6 sm:p-8 shadow-xl">
-            <div className="text-xs font-bold tracking-[0.22em] text-[#e0b75a]">JOIN THE WELFARE FUND</div>
-            <div className="mt-3 flex items-baseline gap-1">
-              <span className="text-xl font-bold text-[#e0b75a]">$</span>
-              <span className="font-display font-bold text-6xl leading-none text-[#e0b75a]">{JOINING_TOTAL}</span>
-              <span className="ml-2 text-sm text-[#c9d3cc]">AUD, one-off</span>
-            </div>
-            <dl className="mt-6 space-y-3 border-t border-white/15 pt-5 text-sm">
-              <div className="flex justify-between gap-4">
-                <dt className="text-[#c9d3cc]">Community registration fee</dt>
-                <dd className="font-semibold">${COMMUNITY_REGISTRATION_FEE}</dd>
-              </div>
-              <div className="flex justify-between gap-4">
-                <dt className="text-[#c9d3cc]">Welfare contribution</dt>
-                <dd className="font-semibold">${WELFARE_CONTRIBUTION}</dd>
-              </div>
-            </dl>
-            <Link
-              to="/welfare/apply"
-              className="mt-7 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#e0b75a] px-6 font-bold text-[#0f2c20] hover:bg-[#ebc774] transition"
-            >
-              Apply now
-              <ArrowRight className="w-4 h-4" />
+        {/* Membership application lives on its own page */}
+        <div className="text-center">
+          <Button asChild variant="community" size="lg" className="group">
+            <Link to="/welfare/apply">
+              Join the Welfare Fund
+              <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
-            <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#c9d3cc]">
-              <Lock className="w-3.5 h-3.5" /> Fill in the form, then pay securely online
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-[#e5e1d8] p-6 sm:p-8">
-            <div className="text-xs font-bold tracking-[0.22em] text-[#0f2c20]">HOW OUR SUPPORT WORKS</div>
-            <ol className="mt-5 space-y-5">
-              {supportProcess.map((step, index) => (
-                <li key={step.title} className="flex gap-4">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0f2c20] font-display font-bold text-[#e0b75a]">
-                    {index + 1}
-                  </span>
-                  <div>
-                    <div className="font-semibold text-[#17201b]">{step.title}</div>
-                    <p className="mt-1 text-sm text-gray-600 leading-relaxed">{step.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </aside>
+          </Button>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Welfare;
