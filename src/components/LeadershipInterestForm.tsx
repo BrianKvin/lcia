@@ -241,7 +241,7 @@ const LeadershipInterestForm = () => {
                 <div className="flex items-start gap-4">
                   <FileText aria-hidden="true" className="mt-1 h-7 w-7 shrink-0 text-luhya-green" />
                   <div className="min-w-0">
-                    <h4 className="font-semibold text-luhya-navy">Mulembe Community NSW Inc Constitution (2026)</h4>
+                    <h4 className="font-semibold text-luhya-navy">MULEMBE COMMUNITY NSW INC CONSTITUTION (2026)</h4>
                     <p className="mt-1 text-sm text-slate-600">2026 edition · PDF · Read here or download a copy</p>
                   </div>
                 </div>
@@ -257,10 +257,10 @@ const LeadershipInterestForm = () => {
                       <p className="mt-1 text-xs text-slate-500">Mulembe Community NSW Inc · 2026</p>
                     </div>
                     <Button asChild variant="outline" className="min-h-11 border-luhya-navy/20 text-luhya-navy">
-                      <a href={constitutionUrl} download="Mulembe Community NSW Inc Constitution (2026).pdf"><Download aria-hidden="true" />Download PDF</a>
+                      <a href={constitutionUrl} download="MULEMBE COMMUNITY NSW INC CONSTITUTION (2026).pdf"><Download aria-hidden="true" />Download PDF</a>
                     </Button>
                   </div>
-                  <iframe src={`${constitutionUrl}#navpanes=0&view=FitH&zoom=page-width`} title="Mulembe Community NSW Inc Constitution (2026)" className="block h-[70vh] min-h-[420px] max-h-[800px] w-full border-0 bg-slate-100" />
+                  <iframe src={`${constitutionUrl}#navpanes=0&view=FitH&zoom=page-width`} title="MULEMBE COMMUNITY NSW INC CONSTITUTION (2026)" className="block h-[70vh] min-h-[420px] max-h-[800px] w-full border-0 bg-slate-100" />
                   <div className="space-y-4 border-t border-slate-200 bg-white p-4 sm:p-5">
                     <p className="text-sm leading-relaxed text-slate-600">Read through the document, then return to the acknowledgement below. If your browser cannot display the preview, use Download PDF to read a copy.</p>
                     <Button type="button" variant="outline" onClick={closePreview} className="h-auto min-h-11 whitespace-normal text-luhya-navy"><ArrowLeft aria-hidden="true" />Back to acknowledgement</Button>
