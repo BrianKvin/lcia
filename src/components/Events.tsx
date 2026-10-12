@@ -26,8 +26,10 @@ const Events = () => {
  }
   ];
 
-  const tickets = [
-    { name: "Early Bird", price: 90, unit: "per person", badge: "Save $10", link: "https://buy.stripe.com/aFa5kxceI9p12pMfZ0bQY00",
+  // Set `closed: true` when an offer ends: the card stays visible, greyed out, with no buy link.
+  // Also deactivate its payment link in Stripe, or the old link keeps working.
+  const tickets: Array<{ name: string; price: number; unit: string; badge?: string; link: string; description: string; closed?: boolean }> = [
+    { name: "Early Bird", price: 90, unit: "per person", badge: "Save $10", closed: true, link: "https://buy.stripe.com/aFa5kxceI9p12pMfZ0bQY00",
       description: "Planning to join us? Why wait? Get your ticket early and enjoy our special Early Bird rate." },
     { name: "Standard", price: 100, unit: "per person", link: "https://buy.stripe.com/7sYfZb0w0gRt3tQ8wybQY02",
       description: "Ready for Mulembe Night? Get your ticket and join us for an evening of culture, connection, food, music and celebration." },
@@ -220,7 +222,9 @@ const Events = () => {
                 {tickets.map((t) => (
                   <div
                     key={t.name}
-                    className="relative grid grid-cols-[116px_minmax(0,1fr)] sm:grid-cols-[200px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-[#e5e1d8] bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    className={`relative grid grid-cols-[116px_minmax(0,1fr)] sm:grid-cols-[200px_minmax(0,1fr)] overflow-hidden rounded-2xl border border-[#e5e1d8] bg-white shadow-sm transition ${
+                      t.closed ? "opacity-60 grayscale" : "hover:-translate-y-0.5 hover:shadow-md"
+                    }`}
                   >
                     <div
                       className="relative flex flex-col justify-center px-3.5 py-5 sm:px-7 border-r-2 border-dashed border-[#d9d3c6] bg-[#f6f2ea] text-[#0f2c20]"
@@ -239,7 +243,11 @@ const Events = () => {
                         <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                           <span className="hidden sm:inline text-xl font-bold">{t.name}</span>
                           <span className="text-sm text-gray-600">{t.unit}</span>
-                          {t.badge && (
+                          {t.closed ? (
+                            <span className="rounded-full px-2.5 py-0.5 text-[11px] sm:text-xs font-bold bg-gray-200 text-gray-700">
+                              Offer closed
+                            </span>
+                          ) : t.badge && (
                             <span
                               className="rounded-full px-2.5 py-0.5 text-[11px] sm:text-xs font-bold bg-[#e3f1e6] text-[#1f6b3a]"
                             >
@@ -249,16 +257,22 @@ const Events = () => {
                         </div>
                         <p className="text-sm sm:text-[15px] leading-relaxed text-gray-600">{t.description}</p>
                       </div>
-                      <a
-                        href={t.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex shrink-0 min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-[15px] font-bold transition bg-[#0f2c20] text-white hover:bg-[#1a4332]"
-                      >
-                        <span className="sm:hidden">Buy {t.name}</span>
-                        <span className="hidden sm:inline">Buy ticket</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
+                      {t.closed ? (
+                        <span className="inline-flex shrink-0 min-h-11 items-center justify-center rounded-full border border-gray-300 px-6 py-3 text-sm sm:text-[15px] font-bold text-gray-600">
+                          No longer available
+                        </span>
+                      ) : (
+                        <a
+                          href={t.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex shrink-0 min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm sm:text-[15px] font-bold transition bg-[#0f2c20] text-white hover:bg-[#1a4332]"
+                        >
+                          <span className="sm:hidden">Buy {t.name}</span>
+                          <span className="hidden sm:inline">Buy ticket</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 ))}
